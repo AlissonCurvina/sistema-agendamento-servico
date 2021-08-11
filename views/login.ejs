@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+
+  <link rel="stylesheet" href="../main.css">
+</head>
+<body>
+  <form id="login-form" method="post">
+    <div class="imgcontainer">
+      <h1>SAS</h1>
+      <hr>
+      <h2>Sistema de agendamento de serviços</h2>
+    </div>
+  
+    <div class="container">
+      <label for="uname"><b>Nome de usuário</b></label>
+      <input type="text" placeholder="Digite seu nome de usuário" id="uname" name="uname" required>
+  
+      <label for="pwd"><b>Senha</b></label>
+      <input type="password" placeholder="Digite sua senha" id="pwd" name="pwd" required>
+  
+      <button type="submit">Entrar</button>
+    </div>
+  
+    <div class="container" style="background-color:#f1f1f1">
+      <span class="psw">Esqueceu a <a href="#">senha?</a></span>
+    </div>
+  </form>
+  <script>
+    let form = document.querySelector('#login-form');
+
+    form.addEventListener('submit', login)
+
+    async function login(event) {
+      event.preventDefault();
+      const username = document.querySelector('#uname').value
+      const password = document.querySelector('#pwd').value
+
+      fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      })
+    }
+  </script>
+</body>
+</html>
