@@ -17,6 +17,9 @@ app.use(express.static('public'));
 //view engine
 app.set('view engine', 'ejs');
 
+//body-parser
+app.use(express.json())
+
 //listen for get requests
 app.get('/', (req, res) => {
   //aqui vai o middleware que vai verificar as credenciais do usuário
@@ -28,13 +31,19 @@ app.get('/', (req, res) => {
   res.render('login');
 });
 
-app.post('/', async (req, res) => {
-  res.json({hi: 'hi'})
-})
-
 app.get('/about', (req, res) => {
   res.render('about');
 });
+
+app.get('/cadastrar-usuario', (req, res) => {
+  console.log('fununciou');
+  res.render('create-user');
+})
+
+app.post('/', async (req, res) => {
+  console.log(req.body.username)
+  console.log(req.body.password)
+})
 
 app.use((req,res) => { 
   res.render('404');

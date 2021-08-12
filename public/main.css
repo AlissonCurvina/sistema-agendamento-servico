@@ -8,8 +8,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  height: 100vh;
 }
 
 form {
@@ -22,7 +20,9 @@ label {
 }
 
 /* Full-width inputs */
-input[type=text], input[type=password] {
+input[type=text], 
+input[type=password],
+input[type=email] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -75,6 +75,21 @@ img.avatar {
 span.psw {
   float: right;
   padding-top: 16px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group button:nth-child(1){
+  margin-right: 16px;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 }
 
 /* Change styles for span and cancel button on extra small screens */

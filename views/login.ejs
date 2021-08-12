@@ -18,16 +18,17 @@
   
     <div class="container">
       <label for="uname"><b>Nome de usuário</b></label>
-      <input type="text" placeholder="Digite seu nome de usuário" id="uname" name="uname" required>
+      <input type="text" placeholder="Digite seu nome de usuário" id="uname" required>
   
       <label for="pwd"><b>Senha</b></label>
-      <input type="password" placeholder="Digite sua senha" id="pwd" name="pwd" required>
+      <input type="password" placeholder="Digite sua senha" id="pwd" required>
   
       <button type="submit">Entrar</button>
     </div>
   
-    <div class="container" style="background-color:#f1f1f1">
-      <span class="psw">Esqueceu a <a href="#">senha?</a></span>
+    <div class="container login-options" style="background-color:#f1f1f1">
+      <span>Primeiro acesso? <a href="/cadastrar-usuario">Cadastrar usuário</a></span>
+      <span class="">Esqueceu a <a href="#">senha?</a></span>
     </div>
   </form>
   <script>
@@ -39,6 +40,8 @@
       event.preventDefault();
       const username = document.querySelector('#uname').value
       const password = document.querySelector('#pwd').value
+
+      console.log(password)
 
       fetch('/', {
         method: 'POST',
