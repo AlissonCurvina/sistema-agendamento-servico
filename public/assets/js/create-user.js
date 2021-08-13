@@ -1,7 +1,7 @@
 const form = document.querySelector('#create-user-form');
 const body = document.getElementsByTagName('body')[0]
 
-const validateFormData = event => {
+const validateFormData = async event => {
   event.preventDefault();
   
   const rawFantasyName = document.querySelector('#fname').value;
@@ -46,7 +46,24 @@ const validateFormData = event => {
     let toast = new bootstrap.Toast(toastLiveExample)
     toast.show()
   }
+  
+  const result = await fetch('/cadastrar-usuario', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      fantasyName,
+      userName,
+      email,
+      password
+    })
+  })
 
+  if(result.status = 200) {
+    console.log('Criado e logado')
+  }
+  window.location.href = '/'
 }
 
 form.addEventListener('submit', validateFormData)

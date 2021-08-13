@@ -1,15 +1,29 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+let isUserLogged = true
 
 //express app 
 const app = express();
 
 const dbURI = 'mongodb+srv://admin:senha@cluster0.sh90l.mongodb.net/sasCalendar?retryWrites=true&w=majority'
 
-mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true })
-  .then( res => app.listen(3000))
-  .catch( err => console.log(err))
+const connectToServer = async credentials => {
+  try {
+    let res = await mongoose.connect(dbURI, { 
+      useUnifiedTopology: true, 
+      useNewUrlParser: true 
+    })
+  }
+
+  catch(err) {
+    console.log(mongoose.err)
+  }
+}
+
+connectToServer(dbURI)
+
+app.listen(3000);
 
 //listen for reqs
 app.use(express.static('public'));
@@ -23,9 +37,8 @@ app.use(express.json())
 //listen for get requests
 app.get('/', (req, res) => {
   //aqui vai o middleware que vai verificar as credenciais do usuário
-  let isUserLogged = false
   if(isUserLogged) {
-    res.render('index');
+    res.render('index', {user: 'Canela vendedor de kisuco'});
     return;
   }
   res.render('login');
@@ -36,13 +49,29 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/cadastrar-usuario', (req, res) => {
-  console.log('fununciou');
   res.render('create-user');
 })
 
 app.post('/', async (req, res) => {
-  console.log(req.body.username)
-  console.log(req.body.password)
+  console.log('burro')
+})
+
+app.post('/cadastrar-usuario',  (req, res) => {
+  console.log(req.body)
+
+  const user = new User({
+    fantasyName: req.body.fantasyName,
+    userName: req.body.userName,
+    email: req.body.email,
+    password: req.body.password
+  })
+
+  user.save()
+    .then( (result) => {
+      isUserLogged = true
+      res.json({status: 200})
+    })
+    .catch( err => console.log(err) )
 })
 
 app.use((req,res) => { 
