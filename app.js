@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const Cookies = require('cookies');
+
 const User = require('./models/User');
-let isUserLogged = true
+const routes = require('./routes/routes');
 
 //express app 
 const app = express();
@@ -15,7 +18,6 @@ const connectToServer = async credentials => {
       useNewUrlParser: true 
     })
   }
-
   catch(err) {
     console.log(mongoose.err)
   }
@@ -32,48 +34,13 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 //body-parser
-app.use(express.json())
+app.use(express.json());
+//coolkie-parser
+app.use(cookieParser());
 
-//listen for get requests
-app.get('/', (req, res) => {
-  //aqui vai o middleware que vai verificar as credenciais do usuário
-  if(isUserLogged) {
-    res.render('index', {user: 'Canela vendedor de kisuco'});
-    return;
-  }
-  res.render('login');
-});
-
-app.get('/about', (req, res) => {
-  res.render('about');
-});
-
-app.get('/cadastrar-usuario', (req, res) => {
-  res.render('create-user');
-})
-
-app.post('/', async (req, res) => {
-  console.log('burro')
-})
-
-app.post('/cadastrar-usuario',  (req, res) => {
-  console.log(req.body)
-
-  const user = new User({
-    fantasyName: req.body.fantasyName,
-    userName: req.body.userName,
-    email: req.body.email,
-    password: req.body.password
-  })
-
-  user.save()
-    .then( (result) => {
-      isUserLogged = true
-      res.json({status: 200})
-    })
-    .catch( err => console.log(err) )
-})
+app.use(routes)
 
 app.use((req,res) => { 
   res.render('404');
 })
+

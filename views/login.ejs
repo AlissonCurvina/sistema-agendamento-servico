@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
+  <title>SAS | Sistema de agendamento de serviço</title>
 
   <link rel="stylesheet" href="../main.css">
 </head>
@@ -41,8 +41,6 @@
       const username = document.querySelector('#uname').value
       const password = document.querySelector('#pwd').value
 
-      console.log(password)
-
       fetch('/', {
         method: 'POST',
         headers: {
@@ -52,6 +50,11 @@
           username,
           password
         })
+      })
+      .then( result => {
+        if(result.status == 200) {
+          location.href = '/'
+        }
       })
     }
   </script>
