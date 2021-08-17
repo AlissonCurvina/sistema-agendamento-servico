@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./assets/css/info.css" rel='stylesheet' />
+    <title>Meus Dados</title>
+    <script defer src="./assets/js/info.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>Meus Dados</h1>
+        <ul>
+            <li>
+                <label class="label">
+                    Nome Fantasia
+                </label>
+                <input class="user-data" type="text" value="<%= user.fantasyName %>" disabled>
+            </li>
+            <li>
+                <label class="label">
+                    Nome de usuário
+                </label>
+                <input class="user-data" type="text" value="<%= user.userName %>" disabled>
+            </li>
+            <li>
+                <label class="label">
+                    E-mail
+                </label>
+                <input class="user-data" type="email" value="<%= user.email %>" disabled>
+            </li>
+        </ul>
+    </div>
+    <div class="btn-group">
+        <a onclick="editInfo()" class="btn">
+            Editar
+        </a>
+        <a class="btn" href="">
+            Excluir
+        </a>
+        <a class="btn" href="/">
+            Voltar
+        </a>
+        <a onclick="saveInfo()" class="btn save-btn" href="">
+            Salvar
+        </a>
+    </div>
+</body>
+
+</html>

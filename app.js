@@ -13,12 +13,12 @@ const dbURI = 'mongodb+srv://admin:senha@cluster0.sh90l.mongodb.net/sasCalendar?
 
 const connectToServer = async credentials => {
   try {
-    let res = await mongoose.connect(dbURI, { 
-      useUnifiedTopology: true, 
-      useNewUrlParser: true 
+    let res = await mongoose.connect(dbURI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true
     })
   }
-  catch(err) {
+  catch (err) {
     console.log(mongoose.err)
   }
 }
@@ -40,7 +40,8 @@ app.use(cookieParser());
 
 app.use(routes)
 
-app.use((req,res) => { 
+app.use((req, res) => {
   res.render('404');
 })
+
 

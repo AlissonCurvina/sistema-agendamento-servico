@@ -10,14 +10,14 @@ router.get('/', (req, res) => {
 
   console.log()
 
-  if(cookies.get('SESSION') != undefined) {
+  if (cookies.get('SESSION') != undefined) {
     User.findById(cookies.SESSION)
-      .then( result => {
+      .then(result => {
         res.render('index', { user: result });
       })
     return;
   }
-  res.render('login'); 
+  res.render('login');
 });
 
 router.get('/about', (req, res) => {
@@ -31,24 +31,24 @@ router.get('/cadastrar-usuario', (req, res) => {
 router.post('/', async (req, res, next) => {
   User.find({ userName: req.body.username })
     .exec()
-    .then( result => {
+    .then(result => {
       const currentUser = result[0]
 
-      if(currentUser.password === req.body.password) {
+      if (currentUser.password === req.body.password) {
         let cookies = new Cookies(req, res)
 
-        if(cookies.get('SESSION') == undefined) {
+        if (cookies.get('SESSION') == undefined) {
           cookies.set('SESSION', currentUser._id, {
-            maxAge: 900000,
+            maxAge: 900000000,
             httpOnly: true
-          }) 
+          })
           res.redirect('/')
         }
-      }     
-  })
+      }
+    })
 })
 
-router.post('/cadastrar-usuario',  (req, res) => {
+router.post('/cadastrar-usuario', (req, res) => {
   console.log(req.body)
 
   const user = new User({
@@ -59,20 +59,34 @@ router.post('/cadastrar-usuario',  (req, res) => {
   })
 
   user.save()
-    .then( (result) => {
-      res.json({status: 200})
+    .then((result) => {
+      res.json({ status: 200 })
     })
-    .catch( err => console.log(err) )
+    .catch(err => console.log(err))
 })
 
 router.get('/all-users', (req, res) => {
   User.find()
-    .then( result => res.send(result) )
-    .catch( err => console.log(err))
+    .then(result => res.send(result))
+    .catch(err => console.log(err))
+})
+
+router.get('/meus-dados', (req, res) => {
+  const cookie = new Cookies(req, res);
+  const userId = cookie.get('SESSION');
+
+  User.findById(userId)
+    .then(result => {
+      console.log(result);
+      const user = result;
+      res.render('info', { user });
+    })
+
+
 })
 
 router.get('/logout', (req, res) => {
-  
+
   res.clearCookie('SESSION');
   res.redirect('/');
 })
