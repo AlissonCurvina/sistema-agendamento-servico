@@ -9,6 +9,8 @@ const routes = require('./routes/routes');
 //express app 
 const app = express();
 
+mongoose.set('debug', true)
+
 const dbURI = 'mongodb+srv://admin:senha@cluster0.sh90l.mongodb.net/sasCalendar?retryWrites=true&w=majority'
 
 const connectToServer = async credentials => {

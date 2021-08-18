@@ -2,52 +2,68 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./assets/css/info.css" rel='stylesheet' />
-    <title>Meus Dados</title>
-    <script defer src="./assets/js/info.js"></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="./assets/css/info.css" rel='stylesheet' />
+	<title>Meus Dados</title>
+	<script defer src="./assets/js/info.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <div>
-        <h1>Meus Dados</h1>
-        <ul>
-            <li>
-                <label class="label">
-                    Nome Fantasia
-                </label>
-                <input class="user-data" type="text" value="<%= user.fantasyName %>" disabled>
-            </li>
-            <li>
-                <label class="label">
-                    Nome de usuário
-                </label>
-                <input class="user-data" type="text" value="<%= user.userName %>" disabled>
-            </li>
-            <li>
-                <label class="label">
-                    E-mail
-                </label>
-                <input class="user-data" type="email" value="<%= user.email %>" disabled>
-            </li>
-        </ul>
-    </div>
-    <div class="btn-group">
-        <a onclick="editInfo()" class="btn">
-            Editar
-        </a>
-        <a class="btn" href="">
-            Excluir
-        </a>
-        <a class="btn" href="/">
-            Voltar
-        </a>
-        <a onclick="saveInfo()" class="btn save-btn" href="">
-            Salvar
-        </a>
-    </div>
+	<div>
+		<h1>Meus Dados</h1>
+		<ul>
+			<li>
+				<label class="label">
+					Nome Fantasia
+				</label>
+				<input class="user-data" type="text" id="fname" value="<%= user.fantasyName %>" disabled>
+				<span class="material-icons edit-btn" data-type="fname">
+					edit
+				</span>
+				<span class="material-icons save-btn" data-type="fname">
+					save
+				</span>
+			</li>
+			<li>
+				<label class="label">
+					Nome de usuário
+				</label>
+				<input class="user-data" type="text" id="uname" value="<%= user.userName %>" disabled>
+				<span class="material-icons edit-btn" data-type="uname">
+					edit
+				</span>
+				<span class="material-icons save-btn" data-type="uname">
+					save
+				</span>
+			</li>
+			<li>
+				<label class="label">
+					E-mail
+				</label>
+				<input class="user-data" type="email" id="email" value="<%= user.email %>" disabled>
+				<span class="material-icons edit-btn" data-type="email">
+					edit
+				</span>
+				<span class="material-icons save-btn" data-type="email">
+					save
+				</span>
+			</li>
+		</ul>
+	</div>
+	<div class="btn-group">
+		<a class="btn" href="">
+			Excluir
+		</a>
+		<a class="btn" href="/">
+			Voltar
+		</a>
+		<a onclick="saveInfo()" class="btn save-btn" href="">
+			Salvar
+		</a>
+	</div>
 </body>
 
 </html>

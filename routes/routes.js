@@ -8,8 +8,6 @@ router.get('/', (req, res) => {
   //aqui vai o middleware que vai verificar as credenciais do usuário
   let cookies = new Cookies(req, res)
 
-  console.log()
-
   if (cookies.get('SESSION') != undefined) {
     User.findById(cookies.SESSION)
       .then(result => {
@@ -49,8 +47,6 @@ router.post('/', async (req, res, next) => {
 })
 
 router.post('/cadastrar-usuario', (req, res) => {
-  console.log(req.body)
-
   const user = new User({
     fantasyName: req.body.fantasyName,
     userName: req.body.userName,
@@ -76,13 +72,25 @@ router.get('/meus-dados', (req, res) => {
   const userId = cookie.get('SESSION');
 
   User.findById(userId)
-    .then(result => {
-      console.log(result);
-      const user = result;
-      res.render('info', { user });
-    })
+  .then(result => {
+    const user = result;
+    res.render('info', { user });
+  })
 
+})
 
+router.put('/edit-info', (req, res) => {
+  const itemToUpdate = req.body.resource;
+  const value = req.body.value;
+
+  const cookie = new Cookies(req, res);
+  const userId = cookie.get('SESSION');
+
+  console.log(userId)
+
+  const valueToUpdate = { itemToUpdate: value }
+
+  User.findOneAndUpdate( { _id: userId }, { itemToUpdate: value })
 })
 
 router.get('/logout', (req, res) => {

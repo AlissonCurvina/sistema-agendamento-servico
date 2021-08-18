@@ -1,21 +1,57 @@
-const inputGroup = document.querySelectorAll('.user-data');
-const saveButton = document.querySelector('.save-btn');
+const inputGroup = document.querySelectorAll(".user-data");
+const saveButton = document.querySelector(".save-btn");
+const editInfoButton = document.querySelectorAll(".edit-btn");
+const saveInfoButton = document.querySelectorAll(".save-btn");
 
-const editInfo = event => {
-    inputGroup.forEach(item => item.disabled = false);
-    saveButton.style.display = 'initial';
-}
+editInfoButton.forEach( editButton => {
+  editButton.addEventListener("click", event => {
+  const clickedButton = event.target.dataset.type
 
-const saveInfo = async event => {
-    const result = await fetch('/edit-info', {
-        method: 'PATCH',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            fantasyName,
-            userName,
-            email
-        })
-    })
-}
+  editInfo(clickedButton)
+  });
+});
+
+saveInfoButton.forEach( saveButton => {
+  saveButton.addEventListener("click", event => {
+  const clickedButton = event.target.dataset.type
+
+  saveInfo(clickedButton)
+  });
+});
+
+const editInfo = inputId => {
+  const inputToUpdate = document.querySelector(`#${inputId}`);
+
+  inputToUpdate.disabled = false;
+};
+
+const saveInfo = async inputId => {
+  const infoToUpdate = document.querySelector(`#${inputId}`).value;
+
+  const resourceToUpdate = inputId => {
+    switch(inputId) {
+    case 'uname':
+      return 'userName'
+    case 'fname':
+      return 'fantasyName'
+    case 'email':
+      return 'email'
+    }
+  }
+
+  const value = infoToUpdate;
+  const resource = resourceToUpdate(inputId)
+
+  console.log(value, resource)
+
+  const result = await fetch("/edit-info", {
+    method: "put",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      value: value,
+      resource: resource,
+    }),
+  });
+};

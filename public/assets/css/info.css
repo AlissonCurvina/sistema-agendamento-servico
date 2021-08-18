@@ -5,3 +5,7 @@
 .save-btn {
     display: none;
 }
+
+.material-icons {
+    cursor: pointer;
+}
