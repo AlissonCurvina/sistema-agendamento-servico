@@ -7,6 +7,10 @@ const editInfo = event => {
 }
 
 const saveInfo = async event => {
+    const fantasyName = document.querySelector('#fname').value;
+    const userName = document.querySelector('#uname').value;
+    const email = document.querySelector('#email').value;
+
     const result = await fetch('/edit-info', {
         method: 'PATCH',
         headers: {

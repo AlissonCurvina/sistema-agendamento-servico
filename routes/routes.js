@@ -85,6 +85,18 @@ router.get('/meus-dados', (req, res) => {
 
 })
 
+router.patch('/edit-info', (req, res) => {
+  const cookie = new Cookies(req, res);
+  const userId = cookie.get('SESSION');
+
+  console.log("Está aqui");
+
+  User.findByIdAndUpdate(userId, ({ userName: req.body.userName }, { fantasyName: req.body.fantasyName }, { email: req.body.email }))
+    .then(result => {
+      console.log(result);
+    })
+})
+
 router.get('/logout', (req, res) => {
 
   res.clearCookie('SESSION');
