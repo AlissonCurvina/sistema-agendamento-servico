@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
 
   <link rel="stylesheet" href="../main.css">
 </head>
+
 <body>
   <form id="login-form" method="post">
     <div class="imgcontainer">
@@ -15,17 +17,17 @@
       <hr>
       <h2>Sistema de agendamento de serviços</h2>
     </div>
-  
+
     <div class="container">
       <label for="uname"><b>Nome de usuário</b></label>
       <input type="text" placeholder="Digite seu nome de usuário" id="uname" required>
-  
+
       <label for="pwd"><b>Senha</b></label>
       <input type="password" placeholder="Digite sua senha" id="pwd" required>
-  
+
       <button type="submit">Entrar</button>
     </div>
-  
+
     <div class="container login-options" style="background-color:#f1f1f1">
       <span>Primeiro acesso? <a href="/cadastrar-usuario">Cadastrar usuário</a></span>
       <span class="">Esqueceu a <a href="#">senha?</a></span>
@@ -51,12 +53,13 @@
           password
         })
       })
-      .then( result => {
-        if(result.status == 200) {
-          location.href = '/'
-        }
-      })
+        .then(result => {
+          if (result.status == 200) {
+            location.href = '/'
+          }
+        })
     }
   </script>
 </body>
+
 </html>

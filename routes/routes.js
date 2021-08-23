@@ -72,15 +72,15 @@ router.get('/meus-dados', (req, res) => {
   const userId = cookie.get('SESSION');
 
   User.findById(userId)
-  .then(result => {
-    const user = result;
-    res.render('info', { user });
-  })
+    .then(result => {
+      const user = result;
+      res.render('info', { user });
+    })
 
 })
 
-router.put('/edit-info', (req, res) => {
-  const itemToUpdate = req.body.resource;
+router.patch('/edit-info', (req, res) => {
+  let itemToUpdate = req.body.resource;
   const value = req.body.value;
 
   const cookie = new Cookies(req, res);
@@ -89,8 +89,18 @@ router.put('/edit-info', (req, res) => {
   console.log(userId)
 
   const valueToUpdate = { itemToUpdate: value }
+  console.log({ itemToUpdate: value })
+  User.findOneAndUpdate({ _id: userId }, { itemToUpdate: value }, res.redirect('/meus-dados'))
+})
 
-  User.findOneAndUpdate( { _id: userId }, { itemToUpdate: value })
+router.delete('/excluir-dados', (req, res) => {
+  const cookie = new Cookies(req, res);
+  const userId = cookie.get('SESSION');
+
+  User.findOneAndDelete(userId)
+    .then(result => {
+      res.json({ redirect: '/' });
+    })
 })
 
 router.get('/logout', (req, res) => {

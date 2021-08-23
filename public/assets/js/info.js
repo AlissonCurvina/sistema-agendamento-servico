@@ -3,19 +3,19 @@ const saveButton = document.querySelector(".save-btn");
 const editInfoButton = document.querySelectorAll(".edit-btn");
 const saveInfoButton = document.querySelectorAll(".save-btn");
 
-editInfoButton.forEach( editButton => {
+editInfoButton.forEach(editButton => {
   editButton.addEventListener("click", event => {
-  const clickedButton = event.target.dataset.type
+    const clickedButton = event.target.dataset.type
 
-  editInfo(clickedButton)
+    editInfo(clickedButton)
   });
 });
 
-saveInfoButton.forEach( saveButton => {
+saveInfoButton.forEach(saveButton => {
   saveButton.addEventListener("click", event => {
-  const clickedButton = event.target.dataset.type
+    const clickedButton = event.target.dataset.type
 
-  saveInfo(clickedButton)
+    saveInfo(clickedButton)
   });
 });
 
@@ -29,13 +29,13 @@ const saveInfo = async inputId => {
   const infoToUpdate = document.querySelector(`#${inputId}`).value;
 
   const resourceToUpdate = inputId => {
-    switch(inputId) {
-    case 'uname':
-      return 'userName'
-    case 'fname':
-      return 'fantasyName'
-    case 'email':
-      return 'email'
+    switch (inputId) {
+      case 'uname':
+        return 'userName'
+      case 'fname':
+        return 'fantasyName'
+      case 'email':
+        return 'email'
     }
   }
 
@@ -45,7 +45,7 @@ const saveInfo = async inputId => {
   console.log(value, resource)
 
   const result = await fetch("/edit-info", {
-    method: "put",
+    method: "PATCH",
     headers: {
       "Content-type": "application/json",
     },
@@ -54,4 +54,11 @@ const saveInfo = async inputId => {
       resource: resource,
     }),
   });
+
+  const result = wait fetch("/excluir-dados", {
+    method: "DELETE",
+    headers: {
+      "Content-type"
+    }
+  })
 };
