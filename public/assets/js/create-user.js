@@ -1,5 +1,31 @@
 const form = document.querySelector('#create-user-form');
 const body = document.getElementsByTagName('body')[0]
+const backButton = document.querySelector('.back-btn')
+
+const createToast = message => {
+  const message = document.createElement('div')
+    message.innerHTML = 
+    `
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="..." class="rounded me-2" alt="...">
+          <strong class="me-auto">Bootstrap</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          ${message}
+        </div>
+      </div>
+    </div>
+    `
+    body.insertAdjacentElement('afterend', message)
+
+    let toastLiveExample = document.querySelector('#liveToast')
+
+    let toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
+}
 
 const validateFormData = async event => {
   event.preventDefault();
@@ -19,35 +45,17 @@ const validateFormData = async event => {
   const rawConfirmationPassword = document.querySelector('#cpwd').value;
   const confirmationPassword = rawConfirmationPassword.trim();
 
+  let emailToCheck = /gmail/
+
+  if(!emailToCheck.test(email)) {
+    createToast('Use um e-mail válido gmail. O da sua conta google!')
+  }
+
   if(password != confirmationPassword) {
-    const message = document.createElement('div')
-    message.innerHTML = 
-    `
-    <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
-
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <img src="..." class="rounded me-2" alt="...">
-          <strong class="me-auto">Bootstrap</strong>
-          <small>11 mins ago</small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Verifique sua senha!
-        </div>
-      </div>
-    </div>
-    `
-    body.insertAdjacentElement('afterend', message)
-
-    let toastLiveExample = document.querySelector('#liveToast')
-
-    let toast = new bootstrap.Toast(toastLiveExample)
-    toast.show()
+    createToast('As senhas conferem!')
   }
   
-  const result = await fetch('/cadastrar-usuario', {
+  /* const result = await fetch('/cadastrar-usuario', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
@@ -63,7 +71,13 @@ const validateFormData = async event => {
   if(result.status = 200) {
     console.log('Criado e logado')
   }
-  window.location.href = '/'
+  window.location.href = '/' */
 }
+
+backButton.addEventListener('click', event => {
+  event.preventDefault();
+
+  location.href = '/'
+})
 
 form.addEventListener('submit', validateFormData)

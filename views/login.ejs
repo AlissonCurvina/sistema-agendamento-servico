@@ -8,6 +8,7 @@
   <title>SAS | Sistema de agendamento de serviço</title>
 
   <link rel="stylesheet" href="../main.css">
+  <script defer src="../js/login.js"></script>
 </head>
 
 <body>
@@ -33,36 +34,6 @@
       <span class="">Esqueceu a <a href="#">senha?</a></span>
     </div>
   </form>
-  <script>
-    let form = document.querySelector('#login-form');
-
-    form.addEventListener('submit', login)
-
-    async function login(event) {
-      event.preventDefault();
-      const username = document.querySelector('#uname').value
-      const password = document.querySelector('#pwd').value
-
-
-      console.log(password)
-
-      fetch('/', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          username,
-          password
-        })
-      })
-        .then(result => {
-          if (result.status == 200) {
-            location.href = '/'
-          }
-        })
-    }
-  </script>
 </body>
 
 </html>
