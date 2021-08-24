@@ -27,23 +27,23 @@ router.get('/cadastrar-usuario', (req, res) => {
 })
 
 router.post('/', async (req, res, next) => {
-  User.find({ userName: req.body.username })
-    .exec()
-    .then(result => {
-      const currentUser = result[0]
-
-      if (currentUser.password === req.body.password) {
-        let cookies = new Cookies(req, res)
-
-        if (cookies.get('SESSION') == undefined) {
-          cookies.set('SESSION', currentUser._id, {
-            maxAge: 900000000,
-            httpOnly: true
-          })
-          res.redirect('/')
-        }
+  User.findOne({ userName: req.body.username })
+  .exec()
+  .then( result => {
+    const currentUser = result
+    if (currentUser.password === req.body.password) {
+      let cookies = new Cookies(req, res)
+  
+      if (cookies.get('SESSION') == undefined) {
+        cookies.set('SESSION', currentUser._id, {
+          maxAge: 900000000,
+          httpOnly: true
+        })
+        res.redirect('/')
       }
-    })
+    } 
+  })
+  .catch( err=> console.log(err))
 })
 
 router.post('/cadastrar-usuario', (req, res) => {
@@ -55,10 +55,10 @@ router.post('/cadastrar-usuario', (req, res) => {
   })
 
   user.save()
-    .then((result) => {
-      res.json({ status: 200 })
-    })
-    .catch(err => console.log(err))
+  .then((result) => {
+    res.json({ status: 200 })
+  })
+  .catch(err => console.log(err))
 })
 
 router.get('/all-users', (req, res) => {
@@ -79,28 +79,38 @@ router.get('/meus-dados', (req, res) => {
 
 })
 
-router.patch('/edit-info', (req, res) => {
-  let itemToUpdate = req.body.resource;
-  const value = req.body.value;
-
+router.patch('/edit-info', async (req, res) => {
   const cookie = new Cookies(req, res);
   const userId = cookie.get('SESSION');
 
-  console.log(userId)
+  let item;
 
-  const valueToUpdate = { itemToUpdate: value }
-  console.log({ itemToUpdate: value })
-  User.findOneAndUpdate({ _id: userId }, { itemToUpdate: value }, res.redirect('/meus-dados'))
+  switch(req.body.resource) {
+    case 'username':
+    item = { username: req.body.value }
+    break;
+    case 'fantasyName':
+    item = { fantasyName: req.body.value }
+    break;
+    case 'email':
+    item = { email: req.body.value }
+  }
+
+  let result = await User.findByIdAndUpdate(userId, item, { new: true })
+
+  console.log(result)
+  
 })
 
 router.delete('/excluir-dados', (req, res) => {
-  const cookie = new Cookies(req, res);
-  const userId = cookie.get('SESSION');
 
-  User.findOneAndDelete(userId)
-    .then(result => {
-      res.json({ redirect: '/' });
-    })
+
+  User.findByIdAndDelete(req.body.id)
+  .then(result => {
+
+    res.clearCookie('SESSION');
+    res.json({status: 200, message: 'Usuário deletado'})
+  })
 })
 
 router.get('/logout', (req, res) => {

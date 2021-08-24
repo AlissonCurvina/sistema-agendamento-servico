@@ -2,6 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const Cookies = require('cookies');
+require('dotenv').config({path: __dirname + '/.env'})
+
+const dbUser = process.env.USER;
+const dbPassword = process.env.PASSWORD;
+const dbDomain = process.env.DB_DOMAIN;
+const dbName = process.env.DB_NAME
 
 const User = require('./models/User');
 const routes = require('./routes/routes');
@@ -11,21 +17,19 @@ const app = express();
 
 mongoose.set('debug', true)
 
-const dbURI = 'mongodb+srv://admin:12345@cluster0.gkeb3.mongodb.net/sasCalendar?retryWrites=true&w=majority'
+const dbURI = `mongodb+srv://${dbUser}:${dbPassword}@${dbDomain}/${dbName}?retryWrites=true&w=majority`
 
-const connectToServer = async credentials => {
-  try {
-    let res = await mongoose.connect(dbURI, {
-      useUnifiedTopology: true,
-      useNewUrlParser: true
-    })
-  }
-  catch (err) {
-    console.log(mongoose.err)
-  }
+const connectToServer = dbURI => {
+  mongoose.connect(dbURI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+  })
+  .then( res => {
+    console.log('res')
+  })
 }
 
-connectToServer(dbURI)
+connectToServer(dbURI);
 
 app.listen(3000);
 

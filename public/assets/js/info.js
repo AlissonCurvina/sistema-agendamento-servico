@@ -2,6 +2,7 @@ const inputGroup = document.querySelectorAll(".user-data");
 const saveButton = document.querySelector(".save-btn");
 const editInfoButton = document.querySelectorAll(".edit-btn");
 const saveInfoButton = document.querySelectorAll(".save-btn");
+const deleteButton = document.querySelector(".delete-btn");
 
 editInfoButton.forEach(editButton => {
   editButton.addEventListener("click", event => {
@@ -19,6 +20,10 @@ saveInfoButton.forEach(saveButton => {
   });
 });
 
+deleteButton.addEventListener('click', event => {
+  deleteUser(event.target.dataset.id)
+})
+
 const editInfo = inputId => {
   const inputToUpdate = document.querySelector(`#${inputId}`);
 
@@ -27,11 +32,12 @@ const editInfo = inputId => {
 
 const saveInfo = async inputId => {
   const infoToUpdate = document.querySelector(`#${inputId}`).value;
+  const value = infoToUpdate;
 
   const resourceToUpdate = inputId => {
     switch (inputId) {
       case 'uname':
-        return 'userName'
+        return 'username'
       case 'fname':
         return 'fantasyName'
       case 'email':
@@ -39,10 +45,9 @@ const saveInfo = async inputId => {
     }
   }
 
-  const value = infoToUpdate;
   const resource = resourceToUpdate(inputId)
 
-  console.log(value, resource)
+  console.log(resource)
 
   const result = await fetch("/edit-info", {
     method: "PATCH",
@@ -50,15 +55,21 @@ const saveInfo = async inputId => {
       "Content-type": "application/json",
     },
     body: JSON.stringify({
-      value: value,
-      resource: resource,
-    }),
+      resource,
+      value
+    })
   });
-
-  const result = wait fetch("/excluir-dados", {
-    method: "DELETE",
-    headers: {
-      "Content-type"
-    }
-  })
 };
+
+const deleteUser = async id => {
+  const result = await fetch('/excluir-dados', {
+    method: 'DELETE',
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      id
+    })
+  })
+  location.href = '/'
+}
