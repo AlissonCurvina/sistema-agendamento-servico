@@ -4,12 +4,12 @@ form.addEventListener('submit', login)
 
 async function login(event) {
   event.preventDefault();
+
   const username = document.querySelector('#uname').value
   const password = document.querySelector('#pwd').value
 
-  console.log(password)
-
-  fetch('/', {
+  const config = 
+  {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
@@ -18,12 +18,16 @@ async function login(event) {
       username,
       password
     })
-  })
-    .then(result => {
-      if (result.status == 200) {
-        location.href = '/'
-      }
-    })
+  }
+
+  try {
+    const result = await fetch('/', config)
+    if (result.status == 200) {
+      location.href = '/'
+    }
+  } catch(err) {
+    console.log(err)
+  }
 }
 /* 
 function validarSenha() {

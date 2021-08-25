@@ -10,12 +10,10 @@ const dbDomain = process.env.DB_DOMAIN;
 const dbName = process.env.DB_NAME
 
 const User = require('./models/User');
-const routes = require('./routes/routes');
+const UserRoutes = require('./routes/UserRoutes');
 
 //express app 
 const app = express();
-
-mongoose.set('debug', true)
 
 const dbURI = `mongodb+srv://${dbUser}:${dbPassword}@${dbDomain}/${dbName}?retryWrites=true&w=majority`
 
@@ -25,7 +23,7 @@ const connectToServer = dbURI => {
     useNewUrlParser: true
   })
   .then( res => {
-    console.log('res')
+    return
   })
 }
 
@@ -44,7 +42,7 @@ app.use(express.json());
 //coolkie-parser
 app.use(cookieParser());
 
-app.use(routes)
+app.use(UserRoutes)
 
 app.use((req, res) => {
   res.render('404');
