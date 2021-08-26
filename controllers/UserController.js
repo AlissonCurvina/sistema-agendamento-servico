@@ -7,6 +7,7 @@ const get_index = (req, res) => {
   if (cookies.get('SESSION') != undefined) {
     User.findById(cookies.SESSION)
       .then(result => {
+        console.log(result)
         res.render('index', { user: result });
       })
     return;

@@ -1,11 +1,8 @@
-* {
-    list-style-type: none ;
-}
-
-.save-btn {
-    display: none;
+.my-data-form {
+  margin: 25vh auto;
+  max-width: 600px;
 }
 
 .material-icons {
-    cursor: pointer;
+	cursor: pointer;
 }

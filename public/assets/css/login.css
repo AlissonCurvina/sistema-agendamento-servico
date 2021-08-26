@@ -1,0 +1,9 @@
+.logo {
+  width: 120px;
+  height: 120px;
+}
+
+.login-form {
+  margin: 10vh auto;
+  max-width: 600px;
+}

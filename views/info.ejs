@@ -2,68 +2,116 @@
 <html lang="pt-BR">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="./assets/css/info.css" rel='stylesheet' />
-	<title>Meus Dados</title>
-	<script defer src="./assets/js/info.js"></script>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+	<title>Meus Dados | </title>
 
+	<%- include('../partials/headTags.ejs') %>
+
+	<link href="./assets/css/info.css" rel='stylesheet' />
+	<script defer src="./assets/js/info.js"></script>
+	<script defer src="../assets/js/app.js"></script>
+</head>
 <body>
-	<div>
-		<h1>Meus Dados</h1>
-		<ul>
-			<li>
-				<label class="label">
-					Nome Fantasia
-				</label>
-				<input class="user-data" type="text" id="fname" value="<%= user.fantasyName %>" disabled>
-				<span class="material-icons edit-btn" data-type="fname">
-					edit
+	<div class="container">
+		<form 
+			id="my-data"
+			class="my-data-form align-self-center">
+			<h2 class="text-center">Meus dados</h2>
+			<div class="input-group mb-3">
+				<span class="input-group-text">
+					Nome fantasia:
 				</span>
-				<span class="material-icons save-btn" data-type="fname">
-					save
+				<input 
+					type="text" 
+					class="form-control"
+					value="<%= user.fantasyName %>"
+					disabled>
+					<span class="material-icons input-group-text edit-btn">
+						edit
+					</span>
+					<span class="material-icons input-group-text save-btn">
+						save
+					</span>
+			</div>
+			<div class="input-group mb-3">
+				<span class="input-group-text">
+					Nome de usuário:
 				</span>
-			</li>
-			<li>
-				<label class="label">
-					Nome de usuário
-				</label>
-				<input class="user-data" type="text" id="uname" value="<%= user.userName %>" disabled>
-				<span class="material-icons edit-btn" data-type="uname">
-					edit
+				<input 
+					type="text" 
+					class="form-control"
+					value="<%= user.userName %>"
+					disabled>
+					<span 
+						class="material-icons input-group-text edit-btn">
+						edit
+					</span>
+					<span 
+						class="material-icons input-group-text save-btn">
+						save
+					</span>
+			</div>
+			<div class="input-group mb-3">
+				<span class="input-group-text">
+					E-mail:
 				</span>
-				<span class="material-icons save-btn" data-type="uname">
-					save
-				</span>
-			</li>
-			<li>
-				<label class="label">
-					E-mail
-				</label>
-				<input class="user-data" type="email" id="email" value="<%= user.email %>" disabled>
-				<span class="material-icons edit-btn" data-type="email">
-					edit
-				</span>
-				<span class="material-icons save-btn" data-type="email">
-					save
-				</span>
-			</li>
-		</ul>
+				<input 
+					type="text" 
+					class="form-control"
+					value="<%= user.email %>"
+					disabled>
+					<span 
+						class="material-icons input-group-text edit-btn">
+						edit
+					</span>
+					<span 
+						class="material-icons input-group-text save-btn">
+						save
+					</span>
+			</div>
+			<div class="d-grid gap-2">
+        <a 
+					href="/"
+          class="btn btn-primary">
+					Voltar para a página principal
+				</a>
+      </div>
+		</form>
 	</div>
-	<div class="btn-group">
-		<a class="btn delete-btn">
-			<span class="material-icons" data-id="<%= user._id%>" >delete</span>
-		</a>
-		<a class="btn" href="/">
-			Voltar
-		</a>
-		<a onclick="saveInfo()" class="btn save-btn" href="">
-			Salvar
-		</a>
-	</div>
+	<button class="sidebar-toggle">
+    <span class="material-icons">
+      menu
+    </span>
+  </button>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1> </h1>
+      <button class="close-btn">
+        <span class="material-icons">
+          close
+        </span>
+      </button>
+    </div>
+    <!-- links -->
+    <ul class="links">
+      <li>
+        <a href="/meus-dados">Meus dados</a>
+      </li>
+      <li>
+        <a href="">Serviços</a>
+      </li>
+      <li>
+        <a href="">Gerar mailing</a>
+      </li>
+    </ul>
+    <!-- social media -->
+    <ul class="social-icons">
+      <li>
+        <a href="/logout">
+          Sair
+        </a>
+      </li>
+    </ul>
+  </aside>
 </body>
 
 </html>
