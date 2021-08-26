@@ -5,34 +5,73 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>SAS | Sistema de agendamento de serviço</title>
 
-  <link rel="stylesheet" href="../main.css">
+  <%- include('../partials/headTags.ejs') %>
+
   <script defer src="../assets/js/login.js"></script>
+  <link rel="stylesheet" href="./assets/css/login.css">
 </head>
 
 <body>
-  <form id="login-form" method="post">
-    <div class="imgcontainer">
-      <h1>SAS</h1>
-      <hr>
-      <h2>Sistema de agendamento de serviços</h2>
-    </div>
-
-    <div class="container">
-      <label for="uname"><b>Nome de usuário</b></label>
-      <input type="text" placeholder="Digite seu nome de usuário" id="uname" required>
-
-      <label for="pwd"><b>Senha</b></label>
-      <input type="password" placeholder="Digite sua senha" id="pwd" required>
-
-      <button type="submit">Entrar</button>
-    </div>
-
-    <div class="container login-options" style="background-color:#f1f1f1">
-      <span>Primeiro acesso? <a href="/cadastrar-usuario">Cadastrar usuário</a></span>
-      <span class="">Esqueceu a <a href="#">senha?</a></span>
-    </div>
-  </form>
+  <div class="container">
+    <form 
+      id="login-form"
+      class="login-form align-self-center">
+      <img 
+        class="logo mb-3 mx-auto d-block "
+        src="../assets/images/sas-logo.png" 
+        alt="Logo SAS">
+      <h3 class="text-center">Sistema de agendamento de serviços</h3>
+      <div class="mb-3">
+        <label 
+          for="username" 
+          class="form-label">
+          Nome</label>
+        <input 
+          type="text" 
+          class="form-control"
+          id="uname" 
+          aria-describedby="username"
+          placeholder="Digite seu nome de usuário">
+      </div>
+      <div class="mb-3">
+        <label 
+          for="pwd" 
+          class="form-label">
+          Senha</label>
+        <input 
+          type="password" 
+          class="form-control" 
+          id="pwd"
+          placeholder="Digite sua senha">
+      </div>
+      <span class="float-end">
+        Esqueceu a <a href="#">senha?</a></span>
+      <div class="mb-3 form-check">
+        <input 
+          type="checkbox" 
+          class="form-check-input" 
+          id="remember-pwd">
+        <label 
+          class="form-check-label" 
+          for="remember-pwd">Lembrar minha senha</label>
+      </div>
+    
+      <div class="d-grid gap-2">
+        <button 
+          class="btn btn-primary" 
+          type="submit">Entrar</button>
+        <button 
+          class="btn btn-success" 
+          type="button">
+            <a style="color: inherit;" href="/cadastrar-usuario">
+              Cadastrar usuário
+            </a>
+        </button>
+      </div>
+    </form>
+  </div>
 </body>
 </html>

@@ -1,15 +1,6 @@
-* {
-	list-style-type: none ;
-}
-
-main {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.save-btn {
-	display: none;
+.my-data-form {
+  margin: 25vh auto;
+  max-width: 600px;
 }
 
 .material-icons {
