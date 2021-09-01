@@ -12,6 +12,8 @@ const dbName = process.env.DB_NAME
 const User = require('./models/User');
 const UserRoutes = require('./routes/UserRoutes');
 
+const ServiceRoutes = require('./routes/ServiceRoutes');
+
 //express app 
 const app = express();
 
@@ -43,6 +45,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(UserRoutes)
+
+app.use(ServiceRoutes)
 
 app.use((req, res) => {
   res.render('404');

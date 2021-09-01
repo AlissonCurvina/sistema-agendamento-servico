@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 
 <head>
-  <title>HOME | <%= user %></title>
+  <title>HOME | <%= user.fantasyName %></title>
 
   <link href='./assets/js/libs/fullcalendar-5.8.0/main.css' rel='stylesheet'/>
   <script src='./assets/js/libs/fullcalendar-5.8.0/main.js'></script>
@@ -10,57 +10,21 @@
 
   <%- include('../partials/headTags.ejs')  %>
 
-  <script defer src="../assets/js/app.js"></script>
+  <script defer src="../assets/js/calendar.js"></script>
   <link rel="stylesheet" href="../assets/css/index.css">
 </head>
 
 <body>
-  <button class="sidebar-toggle">
-    <span class="material-icons">
-      menu
-    </span>
-  </button>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <h1> </h1>
-      <button class="close-btn">
-        <span class="material-icons">
-          close
-        </span>
-      </button>
-    </div>
-    <!-- links -->
-    <ul class="links">
-      <li>
-        <a href="/meus-dados">Meus dados</a>
-      </li>
-      <li>
-        <a href="">Serviços</a>
-      </li>
-      <li>
-        <a href="">Gerar mailing</a>
-      </li>
-    </ul>
-    <!-- social media -->
-    <ul class="social-icons">
-      <li>
-        <a href="/logout">
-          Sair
-        </a>
-      </li>
-    </ul>
-  </aside>
+  <%# Menu lateral %>
+  <%- include('../partials/menu.ejs')  %>
+
   <div class="app-initial-point">
-    <h1 class="calendar-name">Agenda da barbearia</h1>
+    <h1 class="calendar-name"><%= user.fantasyName %> </h1>
     <div id='calendar'>
       <!-- Javascript -->
     </div>
   </div>
-  <a href="/about">
-    <img 
-    class="logo"
-    src="../assets/images/sas-logo.png" 
-    alt="Logo SAS">
-  </a>
+
+  <%- include('../partials/footer.ejs') %>
 </body>
 </html>

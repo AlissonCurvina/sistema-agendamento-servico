@@ -1,15 +1,15 @@
 const Cookies = require('cookies');
 const User = require('../models/User');
 
-const get_index = (req, res) => {
+const get_index = async (req, res) => {
   let cookies = new Cookies(req, res)
 
   if (cookies.get('SESSION') != undefined) {
-    User.findById(cookies.SESSION)
-      .then(result => {
-        console.log(result)
-        res.render('index', { user: result });
-      })
+    const user = await User.findById(cookies.get('SESSION'))
+      
+    console.log(user)
+
+    res.render('index', {user: user});
     return;
   }
   res.render('login');
@@ -65,7 +65,7 @@ const get_my_data = (req, res) => {
   User.findById(userId)
   .then(result => {
     const user = result;
-    res.render('info', { user });
+    res.render('info', { user: user });
   })
 }
 
@@ -85,12 +85,14 @@ const edit_info = async (req, res) => {
     case 'email':
     item = { email: req.body.value }
   }
-
   let result = await User.findByIdAndUpdate(userId, item, { new: true })
 }
 
 const delete_user = (req, res) => {
-  User.findByIdAndDelete(req.body.id)
+  const cookie = new Cookies(req, res);
+  const userId = cookie.get('SESSION');
+
+  User.findByIdAndDelete(userId)
   .then(result => {
 
     res.clearCookie('SESSION');
