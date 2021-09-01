@@ -11,6 +11,9 @@
 	<script defer src="../assets/js/app.js"></script>
 </head>
 <body>
+	<%# Menu lateral %>
+	<%- include('../partials/menu.ejs')  %>
+
 	<div class="container">
 		<form 
 			id="my-data"
@@ -21,14 +24,19 @@
 					Nome fantasia:
 				</span>
 				<input 
+					id="fname"
 					type="text" 
 					class="form-control"
 					value="<%= user.fantasyName %>"
 					disabled>
-					<span class="material-icons input-group-text edit-btn">
+					<span 
+						class="material-icons input-group-text edit-btn"
+						data-type="fname">
 						edit
 					</span>
-					<span class="material-icons input-group-text save-btn">
+					<span 
+						class="material-icons input-group-text save-btn"
+						data-type="fname">
 						save
 					</span>
 			</div>
@@ -37,16 +45,19 @@
 					Nome de usuário:
 				</span>
 				<input 
+					id="uname"
 					type="text" 
 					class="form-control"
 					value="<%= user.userName %>"
 					disabled>
 					<span 
-						class="material-icons input-group-text edit-btn">
+						class="material-icons input-group-text edit-btn"
+						data-type="uname">
 						edit
 					</span>
 					<span 
-						class="material-icons input-group-text save-btn">
+						class="material-icons input-group-text save-btn"
+						data-type="uname">
 						save
 					</span>
 			</div>
@@ -55,20 +66,27 @@
 					E-mail:
 				</span>
 				<input 
+					id="email"
 					type="text" 
 					class="form-control"
 					value="<%= user.email %>"
 					disabled>
 					<span 
-						class="material-icons input-group-text edit-btn">
+						class="material-icons input-group-text edit-btn"
+						data-type="email">
 						edit
 					</span>
 					<span 
-						class="material-icons input-group-text save-btn">
+						class="material-icons input-group-text save-btn"
+						data-type="email">
 						save
 					</span>
 			</div>
 			<div class="d-grid gap-2">
+				<a href="/excluir-dados"
+					class="btn btn-danger delete-btn">					
+					Deletar usuário
+				</a>
         <a 
 					href="/"
           class="btn btn-primary">
@@ -77,41 +95,8 @@
       </div>
 		</form>
 	</div>
-	<button class="sidebar-toggle">
-    <span class="material-icons">
-      menu
-    </span>
-  </button>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <h1> </h1>
-      <button class="close-btn">
-        <span class="material-icons">
-          close
-        </span>
-      </button>
-    </div>
-    <!-- links -->
-    <ul class="links">
-      <li>
-        <a href="/meus-dados">Meus dados</a>
-      </li>
-      <li>
-        <a href="">Serviços</a>
-      </li>
-      <li>
-        <a href="">Gerar mailing</a>
-      </li>
-    </ul>
-    <!-- social media -->
-    <ul class="social-icons">
-      <li>
-        <a href="/logout">
-          Sair
-        </a>
-      </li>
-    </ul>
-  </aside>
+	
+	<%- include('../partials/footer.ejs')  %>
 </body>
 
 </html>

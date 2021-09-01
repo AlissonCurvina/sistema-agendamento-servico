@@ -4,32 +4,6 @@ const editInfoButton = document.querySelectorAll(".edit-btn");
 const saveInfoButton = document.querySelectorAll(".save-btn");
 const deleteButton = document.querySelector(".delete-btn");
 
-editInfoButton.forEach(editButton => {
-  editButton.addEventListener("click", event => {
-    const clickedButton = event.target.dataset.type
-
-    editInfo(clickedButton)
-  });
-});
-
-saveInfoButton.forEach(saveButton => {
-  saveButton.addEventListener("click", event => {
-    const clickedButton = event.target.dataset.type
-
-    saveInfo(clickedButton)
-  });
-});
-
-deleteButton.addEventListener('click', event => {
-  deleteUser(event.target.dataset.id)
-})
-
-const editInfo = inputId => {
-  const inputToUpdate = document.querySelector(`#${inputId}`);
-
-  inputToUpdate.disabled = false;
-};
-
 const saveInfo = async inputId => {
   const infoToUpdate = document.querySelector(`#${inputId}`).value;
   const value = infoToUpdate;
@@ -61,7 +35,20 @@ const saveInfo = async inputId => {
   });
 };
 
+saveInfoButton.forEach(saveButton => {
+  saveButton.addEventListener("click", event => {
+    const clickedButton = event.target.dataset.type
+  
+    saveInfo(clickedButton)
+
+    const inputToUpdate = document.querySelector(`#${clickedButton}`);
+
+    inputToUpdate.disabled = true;
+  });
+});
+
 const deleteUser = async id => {
+  
   const result = await fetch('/excluir-dados', {
     method: 'DELETE',
     headers: {
@@ -73,3 +60,30 @@ const deleteUser = async id => {
   })
   location.href = '/'
 }
+
+deleteButton.addEventListener('click', event => {
+  event.preventDefault()
+
+  const confirmDelete = confirm("Deseja realmente deletar o usuário?")
+
+  if(confirmDelete) {
+    deleteUser(event.target.dataset.id)
+  }
+})
+
+const editInfo = inputId => {
+  const inputToUpdate = document.querySelector(`#${inputId}`);
+
+  inputToUpdate.disabled = false;
+};
+
+editInfoButton.forEach(editButton => {
+  editButton.addEventListener("click", event => {
+    const clickedButton = event.target.dataset.type
+
+    editInfo(clickedButton)
+  });
+});
+
+
+

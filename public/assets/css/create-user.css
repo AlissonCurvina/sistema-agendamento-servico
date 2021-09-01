@@ -1,0 +1,9 @@
+.create-user-form {
+  margin: 10vh auto;
+  max-width: 600px;
+}
+
+.logo {
+  justify-self: center;
+  height: 200px;
+}

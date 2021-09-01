@@ -1,8 +1,7 @@
 const form = document.querySelector('#create-user-form');
 const body = document.getElementsByTagName('body')[0]
-const backButton = document.querySelector('.back-btn')
 
-const createToast = message => {
+/* const createToast = message => {
   const message = document.createElement('div')
     message.innerHTML = 
     `
@@ -25,7 +24,7 @@ const createToast = message => {
 
     let toast = new bootstrap.Toast(toastLiveExample)
     toast.show()
-}
+} */
 
 const validateFormData = async event => {
   event.preventDefault();
@@ -55,7 +54,7 @@ const validateFormData = async event => {
     createToast('As senhas conferem!')
   }
   
-  /* const result = await fetch('/cadastrar-usuario', {
+  const result = await fetch('/cadastrar-usuario', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
@@ -71,13 +70,7 @@ const validateFormData = async event => {
   if(result.status = 200) {
     console.log('Criado e logado')
   }
-  window.location.href = '/' */
+  window.location.href = '/'
 }
-
-backButton.addEventListener('click', event => {
-  event.preventDefault();
-
-  location.href = '/'
-})
 
 form.addEventListener('submit', validateFormData)
