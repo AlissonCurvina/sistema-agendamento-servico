@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 
 <head>
-	<title>Meus Dados | </title>
+	<title>SAS | <%= pageInfo.pageName %></title>
 
 	<%- include('../partials/headTags.ejs') %>
 
@@ -27,7 +27,7 @@
 					id="fname"
 					type="text" 
 					class="form-control"
-					value="<%= user.fantasyName %>"
+					value="<%= pageInfo.currentUser.fantasyName %>"
 					disabled>
 					<span 
 						class="material-icons input-group-text edit-btn"
@@ -48,7 +48,7 @@
 					id="uname"
 					type="text" 
 					class="form-control"
-					value="<%= user.userName %>"
+					value="<%= pageInfo.currentUser.userName %>"
 					disabled>
 					<span 
 						class="material-icons input-group-text edit-btn"
@@ -69,7 +69,7 @@
 					id="email"
 					type="text" 
 					class="form-control"
-					value="<%= user.email %>"
+					value="<%= pageInfo.currentUser.email %>"
 					disabled>
 					<span 
 						class="material-icons input-group-text edit-btn"

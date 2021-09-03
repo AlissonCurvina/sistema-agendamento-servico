@@ -2,7 +2,10 @@ const Cookies = require('cookies');
 const Service = require('../models/Service');
 
 const get_services = (req, res) => {
-  res.render('services')
+  const pageInfo = {
+    pageName: 'Serviços'
+  }
+  res.render('services', {pageInfo})
 }
 
 const create_service = (req, res) => {

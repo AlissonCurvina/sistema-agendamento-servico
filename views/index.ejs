@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 
 <head>
-  <title>HOME | <%= user.fantasyName %></title>
+  <title>SAS | <%= pageInfo.pageName %></title>
 
   <link href='./assets/js/libs/fullcalendar-5.8.0/main.css' rel='stylesheet'/>
   <script src='./assets/js/libs/fullcalendar-5.8.0/main.js'></script>
   <script src="./assets/js/libs/fullcalendar-5.8.0/locales-all.js"></script>
 
-  <%- include('../partials/headTags.ejs')  %>
+  <%- include('../partials/headTags.ejs') %>
 
   <script defer src="../assets/js/calendar.js"></script>
   <link rel="stylesheet" href="../assets/css/index.css">
@@ -19,12 +19,13 @@
   <%- include('../partials/menu.ejs')  %>
 
   <div class="app-initial-point">
-    <h1 class="calendar-name"><%= user.fantasyName %> </h1>
+    <h1 class="calendar-name"><%= pageInfo.currentUser.fantasyName %> </h1>
     <div id='calendar'>
       <!-- Javascript -->
     </div>
   </div>
 
+  <%# Footer %>
   <%- include('../partials/footer.ejs') %>
 </body>
 </html>
