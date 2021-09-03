@@ -1,0 +1,25 @@
+* {
+  outline: 0;
+}
+
+.material-icons {
+  cursor: pointer;
+}
+
+.edit-btn,
+.delete-btn {
+  transition: .3s;
+} 
+
+.edit-btn:hover,
+.delete-btn:hover {
+  transform: scale(1.1);
+}
+
+.edit-btn {
+  color: var(--bs-success);
+}
+
+.delete-btn {
+  color: var(--bs-danger)
+}
