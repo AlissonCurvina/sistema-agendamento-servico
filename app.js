@@ -1,13 +1,10 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
-const Cookies = require('cookies');
 require('dotenv').config({path: __dirname + '/.env'})
 
-const dbUser = process.env.USER;
-const dbPassword = process.env.PASSWORD;
-const dbDomain = process.env.DB_DOMAIN;
-const dbName = process.env.DB_NAME
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const Cookies = require('cookies');
+
+const db = require('./controllers/dbController.js')
 
 const User = require('./models/User');
 const UserRoutes = require('./routes/UserRoutes');
@@ -17,19 +14,7 @@ const ServiceRoutes = require('./routes/ServiceRoutes');
 //express app 
 const app = express();
 
-const dbURI = `mongodb+srv://${dbUser}:${dbPassword}@${dbDomain}/${dbName}?retryWrites=true&w=majority`
-
-const connectToServer = dbURI => {
-  mongoose.connect(dbURI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-  })
-  .then( res => {
-    return
-  })
-}
-
-connectToServer(dbURI);
+db.connect()
 
 app.listen(3000);
 

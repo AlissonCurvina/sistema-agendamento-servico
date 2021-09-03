@@ -2,48 +2,54 @@ const Cookies = require('cookies');
 const User = require('../models/User');
 
 const get_index = async (req, res) => {
-  let cookies = new Cookies(req, res)
+  const cookies = new Cookies(req, res)
 
   if (cookies.get('SESSION') != undefined) {
-    const user = await User.findById(cookies.get('SESSION'))
-      
-    console.log(user)
+    const currentUser = await User.findById(cookies.get('SESSION'))
 
-    res.render('index', {user: user});
+    const pageInfo = {
+      pageName: 'Sistema de agendamento de serviços',
+      currentUser
+    }
+
+    res.render('index', {pageInfo});
     return;
   }
   res.render('login');
 }
 
 const get_about_page = (req, res) => {
-  res.render('about');
+  const pageInfo = {
+    pageName: 'Sobre'
+  }
+  res.render('about', {pageInfo});
 }
 
 const get_create_user_page = (req, res) => {
-  res.render('create-user');
+  const pageInfo = {
+    pageName: 'Cadastrar usuário'
+  }
+  res.render('create-user', {pageInfo});
 }
 
 const login = async (req, res, next) => {
-  User.findOne({ userName: req.body.username })
-  .exec()
-  .then( result => {
-    const currentUser = result
-    if (currentUser.password === req.body.password) {
-      let cookies = new Cookies(req, res)
-  
-      if (cookies.get('SESSION') == undefined) {
-        cookies.set('SESSION', currentUser._id, {
-          maxAge: 900000000,
-          httpOnly: true
-        })
-        res.redirect('/')
-      }
-    } 
-  })
-  .catch( err=> console.log(err))
+  const currentUser = await User.findOne({ userName: req.body.username }).exec()
+  const loggedUser = await currentUser
+
+  if(loggedUser.password === req.body.password) {
+    let cookies = new Cookies(req, res)
+
+    if(cookies.get('SESSION') == undefined) {
+      cookies.set('SESSION', loggedUser._id, {
+        maxAge: 900000000,
+        httpOnly: true
+      })
+      res.redirect('/')
+    }
+  }
 }
 
-const create_user = (req, res) => {
+const create_user = async (req, res) => {
   const user = new User({
     fantasyName: req.body.fantasyName,
     userName: req.body.userName,
@@ -51,24 +57,24 @@ const create_user = (req, res) => {
     password: req.body.password
   })
 
-  user.save()
-  .then((result) => {
-    res.json({ status: 200 })
-  })
-  .catch(err => console.log(err))
+  const createdUser = await user.save()
+
+  res.json({ status: 200 })
 }
 
-const get_my_data = (req, res) => {
+const get_my_data = async (req, res) => {
   const cookie = new Cookies(req, res);
   const userId = cookie.get('SESSION');
 
-  User.findById(userId)
-  .then(result => {
-    const user = result;
-    res.render('info', { user: user });
-  })
-}
+  const currentUser = await User.findById(userId)
 
+  const pageInfo = {
+    pageName: 'Meus dados',
+    currentUser
+  }
+
+  res.render('info', {pageInfo})
+}
 const edit_info = async (req, res) => {
   const cookie = new Cookies(req, res);
   const userId = cookie.get('SESSION');
@@ -96,7 +102,10 @@ const delete_user = (req, res) => {
   .then(result => {
 
     res.clearCookie('SESSION');
-    res.json({status: 200, message: 'Usuário deletado'})
+    res.json({
+      status: 200, 
+      message: 'Usuário deletado'
+    })
   })
 }
 
