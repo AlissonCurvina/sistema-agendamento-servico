@@ -7,13 +7,211 @@
 
   <%- include('../partials/headTags.ejs') %>
 
+  <link rel="stylesheet" href="../assets/css/services.css">
+
+  <script 
+    src="../assets/js/services.js"
+    defer>
+  </script>
+
   <title>SAS | <%= pageInfo.pageName %> </title>
 </head>
 <body>
   <%# Menu lateral %>
   <%- include('../partials/menu.ejs')  %>
 
-  
+  <h1 class="text-center my-4">Lista de serviços </h1>
+
+  <div class="container">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Status</th> 
+          <th scope="col">Serviço</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Duração</th>
+          <th scope="col">Preço</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="form-check form-switch">
+              <input 
+                class="form-check-input shadow-none" 
+                type="checkbox" 
+                id="flexSwitchCheckDefault">
+            </div>
+          </td>
+          <td>Corte de cabelo</td>
+          <td>Corte de cabelo feito com tesoura, máquina e navalha</td>
+          <td>1h</td>
+          <td>R$30,00</td>
+          <td>
+            <span class="material-icons edit-btn">
+              edit
+            </span>
+            <span class="material-icons delete-btn">
+              delete_forever
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-check form-switch">
+              <input 
+                class="form-check-input shadow-none" 
+                type="checkbox" 
+                id="flexSwitchCheckDefault">
+            </div>
+          </td>
+          <td>Corte de barba</td>
+          <td>Corte de barba feito com máquina, navalha, e toalha quente</td>
+          <td>30m</td>
+          <td>R$25,00</td>
+          <td>
+            <span class="material-icons edit-btn">
+              edit
+            </span>
+            <span class="material-icons delete-btn">
+              delete_forever
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-check form-switch">
+              <input 
+                class="form-check-input shadow-none" 
+                type="checkbox" 
+                id="flexSwitchCheckDefault">
+            </div>
+          </td>
+          <td>Corte e barba</td>
+          <td>Promoção de corte de cabelo e barba com desconto</td>
+          <td>1h30m</td>
+          <td>R$50,00</td>
+          <td>
+            <span class="material-icons edit-btn">
+              edit
+            </span>
+            <span class="material-icons delete-btn">
+              delete_forever
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button 
+      type="button" 
+      class="btn btn-success" 
+      data-bs-toggle="modal" 
+      data-bs-target="#exampleModal">
+      Novo serviço</button>
+  </div>
+
+  <div 
+    class="modal fade" 
+    id="exampleModal" 
+    tabindex="-1" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cadastrar novo serviço</h5>
+          <button 
+            type="button" 
+            class="btn-close" 
+            data-bs-dismiss="modal" 
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form 
+            id="create-user-form"
+            class="create-user-form align-self-center">
+
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                for="sname"
+                class="form-label">
+                <b>Nome do serviço</b>
+              </label>
+              <input 
+                type="text" 
+                class="form-control"
+                placeholder="Digite o nome do serviço" 
+                id="sname" 
+                name="sname"/>
+              </div>
+            </div>
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                for="description"
+                class="form-label">
+                <b>Descrição</b>
+              </label>
+              <textarea 
+                type="text" 
+                class="form-control"
+                placeholder="Descreva o serviço em poucas palavras" 
+                id="description" 
+                name="description"></textarea>
+              </div>
+            </div>
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                  for="select"
+                  class="form-label">
+                  <b>Duração</b>
+                </label>
+                <select  
+                  class="form-select" 
+                  aria-label="30m">
+                    <option selected>Clique para ver as opções</option>
+                    <option value="1">30m</option>
+                    <option value="2">1h</option>
+                    <option value="3">1h30</option>
+                    <option value="3">2h</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                for="price"
+                class="form-label">
+                <b>Preço</b>
+              </label>
+              <input 
+                type="text" 
+                class="form-control"
+                placeholder="Digite o preço" 
+                id="price" 
+                name="price"/>
+              </div>
+            </div>
+          </div>
+          </form>
+        
+        <div class="modal-footer">
+          <button   
+            type="button" 
+            class="btn btn-secondary" 
+            data-bs-dismiss="modal">Voltar</button>
+          <button 
+            type="button" 
+            class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <%# Footer %>
   <%- include('../partials/footer.ejs') %>
 </body>

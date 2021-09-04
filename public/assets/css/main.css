@@ -1,8 +1,8 @@
 /* Sidebar */
 .sidebar-toggle {
   position: fixed;
-  top: 2rem;
-  left: 3rem;
+  top: 50%;
+  left: 1rem;
   font-size: 2rem;
   background: transparent;
   border-color: transparent;
