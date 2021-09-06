@@ -2,6 +2,26 @@ const form = document.querySelector('#login-form');
 
 form.addEventListener('submit', login)
 
+function bsAlert(message, type) {
+  const body = document.body
+  const alertEl = document.createElement('div')
+  alertEl.innerHTML = 
+  `
+    <div 
+      class="alert alert-${type} alert-dismissible position-fixed"     
+      role="alert">${message}
+      <button 
+        type="button" 
+        class="btn-close" 
+        data-bs-dismiss="alert" 
+        aria-label="Close">
+      </button>
+    </div>
+  `
+
+  body.append(alertEl)
+}
+
 async function login(event) {
   event.preventDefault();
 
@@ -22,68 +42,27 @@ async function login(event) {
 
   try {
     const result = await fetch('/', config)
-    if (result.status == 200) {
-      location.href = '/'
+    const data = await result.json()
+
+    if(data.status == 200) {
+      bsAlert(data.message, 'success')
+
+      setTimeout(() => {
+        location.href = '/'
+      }, 600)
+      
+    } 
+    else {
+      switch(data.type) {
+      case 'user': 
+        bsAlert(data.message, 'danger')
+        break;
+      case 'password':
+        bsAlert(data.message, 'danger')
+        break;
+      }
     }
   } catch(err) {
     console.log(err)
   }
 }
-/* 
-function validarSenha() {
-  var minuscula = /[a-z]/g;
-  var maiuscula = /[A-Z]/g;
-  var num = /[0-9]/g;
-  
-  if(!senha1.value.match(minuscula)) {
-    alert("Senha deve ter no mínimo 1 letra minuscula!");
-    senha1.focus();
-    return false;
-  }
-
-  if(!senha1.value.match(maiuscula)) {
-    alert("Senha deve ter no mínimo 1 letra maiuscula!");
-    senha1.focus();
-    return false;
-  }
-
-  if(!senha1.value.match(num)) {
-    alert("Senha deve ter no mínimo 1 caracter numerico!");
-    senha1.focus();
-    return false;
-  }
-  
-  if(senha1.value != senha2.value) {
-    alert("Senha diferente!");
-    senha2.value ="";
-    senha2.focus();
-    return false;
-  }
-}
-
-function validar(){    
-  if(nome.value.length<3) {
-    alert("Informe seu nome completo!");
-    nome.value ="";
-    nome.focus();
-    return false;
-  }
-
-  if(email.value.length < 6 || email.value.indexOf("@") <= 0 ||
-  email.value.lastIndexOf(".") <= email.value.indexOf("@")) {
-    alert("Informe um email válido !");
-    email.value ="";
-    email.focus();
-    return false;
-  } 
-  
-  if(senha1.value.length<6 ) {
-    alert("Senha deve ter no mínimo 6 dígitos!");
-    senha1.value ="";
-    senha1.focus();
-    return false;
-  }
-  
-  alert("Cadastro realizado com sucesso !");
-}
- */

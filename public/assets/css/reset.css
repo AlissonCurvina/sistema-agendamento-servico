@@ -43,7 +43,6 @@
   --max-width: 1170px;
   --fixed-width: 620px;
 }
-
 *,
 ::after,
 ::before {
@@ -53,11 +52,12 @@
 }
 body {
   font-family: var(--ff-secondary);
-  background: var(--clr-grey-10);
-  color: var(--clr-grey-1);
+  background: whitesmoke;
+  color: var(--clr-grey-7);
   line-height: 1.5;
   font-size: 0.875rem;
 }
+
 ul {
   list-style-type: none;
 }
@@ -69,7 +69,6 @@ h2,
 h3,
 h4 {
   letter-spacing: var(--spacing);
-  text-transform: capitalize;
   line-height: 1.25;
   margin-bottom: 0.75rem;
   font-family: var(--ff-primary);
@@ -102,7 +101,7 @@ p {
   }
   h4 {
     font-size: 1rem;
-  }
+  } 
   body {
     font-size: 1rem;
   }

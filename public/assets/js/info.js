@@ -10,12 +10,12 @@ const saveInfo = async inputId => {
 
   const resourceToUpdate = inputId => {
     switch (inputId) {
-      case 'uname':
-        return 'username'
-      case 'fname':
-        return 'fantasyName'
-      case 'email':
-        return 'email'
+    case 'uname':
+      return 'username'
+    case 'fname':
+      return 'fantasyName'
+    case 'email':
+      return 'email'
     }
   }
 
@@ -48,7 +48,6 @@ saveInfoButton.forEach(saveButton => {
 });
 
 const deleteUser = async id => {
-  
   const result = await fetch('/excluir-dados', {
     method: 'DELETE',
     headers: {
@@ -64,10 +63,12 @@ const deleteUser = async id => {
 deleteButton.addEventListener('click', event => {
   event.preventDefault()
 
+  const userId = event.target.dataset.id
+
   const confirmDelete = confirm("Deseja realmente deletar o usuário?")
 
   if(confirmDelete) {
-    deleteUser(event.target.dataset.id)
+    deleteUser(userId)
   }
 })
 

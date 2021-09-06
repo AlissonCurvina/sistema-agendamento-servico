@@ -11,9 +11,8 @@ const get_index = async (req, res) => {
       pageName: 'Sistema de agendamento de serviços',
       currentUser
     }
-
-    res.render('index', {pageInfo});
-    return;
+    res.render('index', {pageInfo})
+    return
   }
   res.render('login');
 }
@@ -33,19 +32,50 @@ const get_create_user_page = (req, res) => {
 }
 
 const login = async (req, res, next) => {
-  const currentUser = await User.findOne({ userName: req.body.username }).exec()
-  const loggedUser = await currentUser
+  let cookies = new Cookies(req, res)
 
-  if(loggedUser.password === req.body.password) {
-    let cookies = new Cookies(req, res)
+  if(cookies.get('SESSION')) {
+    res.clearCookie('SESSION')
+  }
 
-    if(cookies.get('SESSION') == undefined) {
-      cookies.set('SESSION', loggedUser._id, {
-        maxAge: 900000000,
+  const userLoginData = req.body.username
+  const userPassword = req.body.password
+
+  try {
+    const currentUser = await User.findOne({ userName: userLoginData }).exec()
+    const loggedUser = await currentUser
+
+    if(loggedUser == null) {
+      res.json({
+        status: 401,
+        type: 'user',
+        message: 'Usuário inexistente'
+      })
+      return
+    }
+
+    if(loggedUser.password != userPassword) {
+      res.json({
+        status: 401,
+        type: 'password',
+        message: 'Senha incorreta'
+      })
+      return
+    }
+
+    if(loggedUser) {
+      cookies.set('SESSION', loggedUser._id, 
+      {
+        maxAge: 900000,
         httpOnly: true
       })
-      res.redirect('/')
+      res.json({
+        status: 200,
+        message: `Bem vindo, ${loggedUser.userName}`
+      })
     }
+  } catch(err) {
+    console.log(err)
   }
 }
 
