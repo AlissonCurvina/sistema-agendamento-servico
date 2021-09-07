@@ -18,7 +18,6 @@ function bsAlert(message, type) {
       </button>
     </div>
   `
-
   body.append(alertEl)
 }
 

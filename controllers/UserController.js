@@ -66,7 +66,7 @@ const login = async (req, res, next) => {
     if(loggedUser) {
       cookies.set('SESSION', loggedUser._id, 
       {
-        maxAge: 900000,
+        maxAge: 9000000000,
         httpOnly: true
       })
       res.json({
@@ -121,6 +121,7 @@ const edit_info = async (req, res) => {
     case 'email':
     item = { email: req.body.value }
   }
+
   let result = await User.findByIdAndUpdate(userId, item, { new: true })
 }
 
@@ -155,4 +156,4 @@ module.exports =
   edit_info,
   delete_user,
   logout
-} 
+}

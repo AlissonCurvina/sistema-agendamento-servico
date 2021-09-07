@@ -17,8 +17,16 @@ const get_services = async (req, res) => {
   }
 }
 
-const create_service = (req, res) => {
-  
+const create_service = async (req, res) => {
+  const myBool = req.body.status
+  const newService = {
+    serviceName: req.body.serviceContent,
+    price: req.body.priceContent,
+    description: req.body.description,
+    durationTime: req.body.description,
+    status: req.body.checkContent ? '1' : '0'
+  }
+  console.log(newService)
 }
 
 module.exports = {

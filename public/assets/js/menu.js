@@ -1,11 +1,13 @@
-const toggleBtn = document.querySelector(".sidebar-toggle");
-const closeBtn = document.querySelector(".close-btn");
-const sidebar = document.querySelector(".sidebar");
+const toggleBtn = document.querySelector(".sidebar-toggle")
+const sidebar = document.querySelector('.offcanvas')
+const closeBtn = document.querySelector('.btn-offcanvas')
+/* 
+toggleBtn.addEventListener('click', event => {
+  sidebar.style.visibility = 'initial'
+  sidebar.classList.add('show')
+})
 
-toggleBtn.addEventListener("click", function () {
-  sidebar.classList.toggle("show-sidebar")
-});
-
-closeBtn.addEventListener("click", function () {
-  sidebar.classList.remove("show-sidebar");
-});
+closeBtn.addEventListener('click', event => {
+  sidebar.style.visibility = 'hidden'
+  sidebar.classList.remove('show')
+}) */

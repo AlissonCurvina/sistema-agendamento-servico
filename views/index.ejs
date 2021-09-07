@@ -22,6 +22,16 @@
 </head>
 
 <body>
+  <div 
+    class="alert alert-success alert-dismissible position-fixed"     
+    role="alert">Bem vindo, <%= pageInfo.currentUser.userName %>!
+    <button 
+      type="button" 
+      class="btn-close" 
+      data-bs-dismiss="alert" 
+      aria-label="Close">
+    </button>
+    </div>
   <%# Menu lateral %>
   <%- include('../partials/menu.ejs')  %>
 

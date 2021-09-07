@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   calendarEl = document.getElementById('calendar')
 
-  console.log('Sou eu, você pensou que fosse outro script, mas sou eu')
-
   const setCurrentCalendar = calendarType => {
     let calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: calendarType,

@@ -1,21 +1,32 @@
-<div class="side-menu">
-  <button class="sidebar-toggle">
-    <span class="material-icons menu-open-btn">
-      arrow_forward_ios
-    </span>
-  </button>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <a href="/">
-        <img 
-        style="position: initial;"
-        class="logo-small"
-        src="../assets/images/sas-logo.png" 
-        alt="Logo SAS">
-      </a>
-      <span class="material-icons close-btn">close</span>
-    </div>
-    <!-- links -->
+<button class="sidebar-toggle">
+  <span class="material-icons menu-open-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop">
+    arrow_forward_ios
+  </span>
+</button>
+
+<div 
+class="offcanvas offcanvas-start" 
+tabindex="-1" 
+id="offcanvasWithBackdrop" 
+aria-labelledby="offcanvasWithBackdropLabel">
+  <div class="offcanvas-header">
+    <a href="/">
+      <img 
+      style="position: initial;"
+      class="logo-small"
+      src="../assets/images/sas-logo.png" 
+      alt="Logo SAS">
+    </a>
+    <h5 
+      class="offcanvas-title" 
+      id="offcanvasWithBackdropLabel"><%= pageInfo.currentUser.fantasyName %></h5>
+    <button 
+      type="button" 
+      class="btn-close text-reset" 
+      data-bs-dismiss="offcanvas" 
+      aria-label="Fechar"></button>
+  </div>
+  <div class="offcanvas-body">
     <ul class="links">
       <li>
         <a href="/meus-dados">Meus dados</a>
@@ -24,16 +35,9 @@
         <a href="/services">Serviços</a>
       </li>
       <li>
-        <a href="">Gerar mailing</a>
+        <a href="/mailing">Gerar mailing</a>
       </li>
+      <li><a href="/logout">Sair</a></li>
     </ul>
-    <!-- social media -->
-    <ul class="social-icons">
-      <li>
-        <a href="/logout">
-          Sair
-        </a>
-      </li>
-    </ul>
-  </aside>
+  </div>
 </div>

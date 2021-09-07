@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <%- include('../partials/headTags.ejs') %>
+
+  <script 
+    src="../assets/js/create-service.js"
+    defer></script>
 
   <link rel="stylesheet" href="../assets/css/services.css">
 
@@ -144,7 +148,9 @@
                 class="form-control"
                 placeholder="Digite o nome do serviço" 
                 id="sname" 
-                name="sname"/>
+                data-bs-toggle="tooltip" data-bs-placement="top"
+                name="sname"
+                required/>
               </div>
             </div>
             <div class="container">
@@ -159,7 +165,8 @@
                 class="form-control"
                 placeholder="Descreva o serviço em poucas palavras" 
                 id="description" 
-                name="description"></textarea>
+                name="description"
+                required></textarea>
               </div>
             </div>
             <div class="container">
@@ -171,7 +178,9 @@
                 </label>
                 <select  
                   class="form-select" 
-                  aria-label="30m">
+                  id="duration"
+                  aria-label="duration"
+                  required>
                     <option selected>Clique para ver as opções</option>
                     <option value="1">30m</option>
                     <option value="2">1h</option>
@@ -189,24 +198,50 @@
                 <b>Preço</b>
               </label>
               <input 
-                type="text" 
+                type="number" 
                 class="form-control"
                 placeholder="Digite o preço" 
+                step="0.01"
+                min="0.00"
                 id="price" 
-                name="price"/>
+                name="price"
+                required/>
               </div>
             </div>
-          </div>
+
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                for="status"
+                class="form-label">
+                  <b>Status</b>
+                </label>
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input status-check-input shadow-none" 
+                    value="true"
+                    type="checkbox" 
+                    checked="true"
+                    id="flexSwitchCheckDefault"
+                    required>
+                    <span class="status-check-text">Ativado</span>
+                </div>
+              </div>
+            </div>
+            <div class="group">
+              <button   
+                type="button" 
+                class="btn btn-secondary" 
+                data-bs-dismiss="modal">Voltar</button>
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                id="create-service-btn">Salvar</button>
+            </div>
           </form>
         
-        <div class="modal-footer">
-          <button   
-            type="button" 
-            class="btn btn-secondary" 
-            data-bs-dismiss="modal">Voltar</button>
-          <button 
-            type="button" 
-            class="btn btn-primary">Salvar</button>
+        <div class="modal-footer d-flex">
+          
         </div>
       </div>
     </div>
