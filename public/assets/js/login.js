@@ -1,8 +1,10 @@
 const form = document.querySelector('#login-form');
+const usernameInput = document.querySelector('#uname')
+const passwordInput = document.querySelector('#pwd')
 
 form.addEventListener('submit', login)
 
-function bsAlert(message, type) {
+const bsAlert = (message, type) => {
   const body = document.body
   const alertEl = document.createElement('div')
   alertEl.innerHTML = 
@@ -21,9 +23,31 @@ function bsAlert(message, type) {
   body.append(alertEl)
 }
 
+const clearErrorMessages = () => {
+  const elementsWithErrorMessages = document.querySelectorAll('.error-message')
+
+  elementsWithErrorMessages.forEach( item => {
+    item.parentNode.removeChild(item)
+  })
+}
+
+const addErrorMessage = (message, el) => {
+  const body = document.body
+  const messageToAppend = document.createElement('small')
+
+  messageToAppend.innerHTML = 
+  `
+    ${message}
+  `
+
+  messageToAppend.classList.add('my-3', 'text-danger', 'error-message')
+  
+  el.insertAdjacentHTML('afterend', messageToAppend.outerHTML)
+
+}
+
 async function login(event) {
   event.preventDefault();
-
   const username = document.querySelector('#uname').value
   const password = document.querySelector('#pwd').value
 
@@ -54,10 +78,18 @@ async function login(event) {
     else {
       switch(data.type) {
       case 'user': 
-        bsAlert(data.message, 'danger')
+        clearErrorMessages()
+
+        usernameInput.classList.add('is-invalid')
+        addErrorMessage(data.message, usernameInput)
+      
         break;
       case 'password':
-        bsAlert(data.message, 'danger')
+        clearErrorMessages()
+        
+        passwordInput.classList.add('is-invalid')
+        addErrorMessage(data.message, passwordInput)
+
         break;
       }
     }

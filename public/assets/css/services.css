@@ -23,3 +23,31 @@
 .delete-btn {
   color: var(--bs-danger)
 }
+
+.alert-placeholder {
+  position: absolute;
+  bottom: 0;
+
+  display: flex;
+  justify-content: center;
+
+  width: 100vw;
+}
+
+.create-service-alert {
+  width: 400px;
+
+  z-index:999999;
+}
+
+table tbody tr:nth-child(1) {
+  border-left: 3px solid green;
+}
+
+.table-secondary tbody td {
+  color: rgb(139, 139, 139);
+}
+
+.table-secondary:nth-child(1) {
+  border-left: 3px solid red;
+}

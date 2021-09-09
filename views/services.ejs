@@ -24,13 +24,14 @@
   <%# Menu lateral %>
   <%- include('../partials/menu.ejs')  %>
 
+  
+
   <h1 class="text-center my-4">Lista de serviços </h1>
 
   <div class="container">
-    <table class="table table-hover">
+    <table class="table">
       <thead>
         <tr>
-          <th scope="col">Status</th> 
           <th scope="col">Serviço</th>
           <th scope="col">Descrição</th>
           <th scope="col">Duração</th>
@@ -39,74 +40,42 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <div class="form-check form-switch">
-              <input 
-                class="form-check-input shadow-none" 
-                type="checkbox" 
-                id="flexSwitchCheckDefault">
-            </div>
-          </td>
-          <td>Corte de cabelo</td>
-          <td>Corte de cabelo feito com tesoura, máquina e navalha</td>
-          <td>1h</td>
-          <td>R$30,00</td>
-          <td>
-            <span class="material-icons edit-btn">
-              edit
-            </span>
-            <span class="material-icons delete-btn">
-              delete_forever
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="form-check form-switch">
-              <input 
-                class="form-check-input shadow-none" 
-                type="checkbox" 
-                id="flexSwitchCheckDefault">
-            </div>
-          </td>
-          <td>Corte de barba</td>
-          <td>Corte de barba feito com máquina, navalha, e toalha quente</td>
-          <td>30m</td>
-          <td>R$25,00</td>
-          <td>
-            <span class="material-icons edit-btn">
-              edit
-            </span>
-            <span class="material-icons delete-btn">
-              delete_forever
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="form-check form-switch">
-              <input 
-                class="form-check-input shadow-none" 
-                type="checkbox" 
-                id="flexSwitchCheckDefault">
-            </div>
-          </td>
-          <td>Corte e barba</td>
-          <td>Promoção de corte de cabelo e barba com desconto</td>
-          <td>1h30m</td>
-          <td>R$50,00</td>
-          <td>
-            <span class="material-icons edit-btn">
-              edit
-            </span>
-            <span class="material-icons delete-btn">
-              delete_forever
-            </span>
-          </td>
-        </tr>
+        <% pageInfo.services.forEach( service => { %>
+          <% if(service.status == false) { %>
+            <tr class="table-secondary">
+              <td><%= service.serviceName %></td>
+              <td><%= service.description %></td>
+              <td><%= service.durationTime %></td>
+              <td>R$<%= service.price %></td>
+              <td>
+                <span class="material-icons edit-btn">
+                  edit
+                </span>
+                <span class="material-icons delete-btn">
+                  delete_forever
+                </span>
+              </td>
+            </tr>
+          <% } else { %>
+            <tr>
+            <td><%= service.serviceName %></td>
+            <td><%= service.description %></td>
+            <td><%= service.durationTime %></td>
+            <td>R$<%= service.price %></td>
+            <td>
+              <span class="material-icons edit-btn">
+                edit
+              </span>
+              <span class="material-icons delete-btn">
+                delete_forever
+              </span>
+            </td>
+          </tr>
+          <% } %>
+        <% }) %>
       </tbody>
     </table>
+    
     <button 
       type="button" 
       class="btn btn-success" 
@@ -133,8 +102,10 @@
         </div>
         <div class="modal-body">
           <form 
+            novalidate
             id="create-user-form"
-            class="create-user-form align-self-center">
+            class="create-user-form align-self-center"
+            >
 
             <div class="container">
               <div class="mb-3">
@@ -177,11 +148,11 @@
                   <b>Duração</b>
                 </label>
                 <select  
-                  class="form-select" 
+                  class="form-select form-control" 
                   id="duration"
                   aria-label="duration"
                   required>
-                    <option selected>Clique para ver as opções</option>
+                    <option selected value="default">Clique para ver as opções</option>
                     <option value="1">30m</option>
                     <option value="2">1h</option>
                     <option value="3">1h30</option>
@@ -222,8 +193,7 @@
                     value="true"
                     type="checkbox" 
                     checked="true"
-                    id="flexSwitchCheckDefault"
-                    required>
+                    id="flexSwitchCheckDefault">
                     <span class="status-check-text">Ativado</span>
                 </div>
               </div>
@@ -233,8 +203,7 @@
                 type="button" 
                 class="btn btn-secondary" 
                 data-bs-dismiss="modal">Voltar</button>
-              <button 
-                type="submit" 
+              <button
                 class="btn btn-primary"
                 id="create-service-btn">Salvar</button>
             </div>

@@ -41,11 +41,31 @@ const login = async (req, res, next) => {
   const userLoginData = req.body.username
   const userPassword = req.body.password
 
+  
+  
   try {
+    if(!userLoginData) {
+      res.json({
+        status: 401,
+        type: 'user',
+        message: 'Digite um nome de usuário'
+      })
+      return
+    }
+
+    if(!userPassword) {
+      res.json({
+        status: 401,
+        type: 'password',
+        message: 'Digite a senha'
+      })
+      return
+    }
+
     const currentUser = await User.findOne({ userName: userLoginData }).exec()
     const loggedUser = await currentUser
 
-    if(loggedUser == null) {
+    if(!loggedUser) {
       res.json({
         status: 401,
         type: 'user',
