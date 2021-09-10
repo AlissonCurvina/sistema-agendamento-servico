@@ -40,7 +40,19 @@ const create_service = async (req, res) => {
   })
 }
 
+const delete_service = async (req, res) => {
+  const result = await Service.findByIdAndRemove(req.body.id,{
+    useFindAndModify: false
+  })
+  console.log(result)
+  res.json({
+    status: 200,
+    message: 'Serviço removido'
+  })
+}
+
 module.exports = {
   get_services,
-  create_service
+  create_service,
+  delete_service
 }

@@ -40,14 +40,11 @@
   z-index:999999;
 }
 
-table tbody tr:nth-child(1) {
-  border-left: 3px solid green;
-}
-
-.table-secondary tbody td {
-  color: rgb(139, 139, 139);
-}
-
-.table-secondary:nth-child(1) {
+table .active-service {
   border-left: 3px solid red;
+  color: #aaa;
+}
+
+table .disabled td {
+  color: #aaa
 }

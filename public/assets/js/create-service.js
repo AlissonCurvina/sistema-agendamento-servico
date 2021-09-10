@@ -1,16 +1,28 @@
+//Form inputs
+const form = document.querySelector('.create-user-form')
 const statusCheckContent = document.querySelector('.status-check-text')
 const checkInput = document.querySelector('.status-check-input')
 const serviceInput = document.querySelector('#sname')
 const descriptionInput = document.querySelector('#description')
 const serviceDurationInput = document.querySelector('#duration')
 const priceInput = document.querySelector('#price')
-const createServiceButton = document.querySelector('#create-service-btn')
-const form = document.querySelector('.create-user-form')
-const body = document.body
-const modal = document.querySelector('#exampleModal')
-const createServiceModal = bootstrap.Modal.getOrCreateInstance(modal)
 
-function bsAlert(message, type, element) {
+const newServiceButton = document.querySelector('.new-service-btn')
+const createServiceButton = document.querySelector('#create-service-btn')
+
+const body = document.body
+
+//Crud buttons
+const deleteButtonList = Array.from(document.querySelectorAll('.delete-btn'))
+const editButtonList = Array.from(document.querySelectorAll('.edit-btn'))
+
+//Modal
+const modal = document.querySelector('#exampleModal')
+const modalInstance = bootstrap.Modal.getOrCreateInstance(modal)
+const openModalButton = document.querySelector('[data-bs-toggle="modal"]')
+
+//Criar alerta do bootstrap
+const bsAlert = (message, type, element) => {
   const alertEl = document.createElement('div')
 
   const alertPlaceholder = document.createElement('div')
@@ -34,19 +46,6 @@ function bsAlert(message, type, element) {
 
   element.insertAdjacentHTML('afterbegin', alertPlaceholder.outerHTML)
 }
-
-const changeStatus = event => {
-  if(event.target.checked == true) {
-    checkInput.value= true
-    statusCheckContent.textContent = 'Ativado'
-    return
-  }
-  checkInput.value= false
-  statusCheckContent.textContent = 'Desativado'
-  return
-}
-
-checkInput.addEventListener('change', changeStatus)
 
 const validateInput = inputEl => {
   if(!inputEl.value) {
@@ -114,13 +113,62 @@ const createService = async event => {
     const result = await fetch('/create-service', config)
     const data = await result.json()
     
-    createServiceModal.hide()
+    modalInstance.hide()
 
     clearInputs(formInputs)
-
     bsAlert(data.message, 'success', body)
 
+    setTimeout( () => {
+      location.href="/services"
+    },1000)
   }
 }
 
-createServiceButton.addEventListener('click', createService)
+
+
+const populateModal = event => {
+  
+  statusCheckContent
+  checkInput
+  serviceInput
+  descriptionInput
+  serviceDurationInput
+  priceInput
+
+  modalInstance.show(event)
+}
+
+
+newServiceButton.addEventListener('click', populateModal)
+
+editButtonList.forEach( button => {
+  button.addEventListener('click', event => {
+    populateModal(event)
+  })
+})
+
+deleteButtonList.forEach( button => {
+  button.addEventListener('click', deleteService)
+})
+
+const deleteService = event => {
+  const serviceId = event.target.dataset.id
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      id: serviceId
+    })
+  }
+  
+  const result = await fetch('/delete-service', config)
+  const data = await result.json()
+
+  bsAlert(data.message, 'danger', body)
+
+  setTimeout( () => {
+    location.href="/services"
+  },1000)
+}

@@ -7,4 +7,6 @@ router.get('/services', serviceController.get_services)
 
 router.post('/create-service', serviceController.create_service)
 
+router.post('/delete-service', serviceController.delete_service)
+
 module.exports = router
