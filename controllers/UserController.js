@@ -41,8 +41,6 @@ const login = async (req, res, next) => {
   const userLoginData = req.body.username
   const userPassword = req.body.password
 
-  
-  
   try {
     if(!userLoginData) {
       res.json({

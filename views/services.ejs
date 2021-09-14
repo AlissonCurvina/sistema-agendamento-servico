@@ -51,7 +51,8 @@
               <td>
                 <span 
                   class="material-icons edit-btn"
-                  data-activated="update-service">
+                  data-activated="update-service"
+                  data-id="<%= service._id %>">
                   edit
                 </span>
                 <span 
@@ -68,13 +69,15 @@
             <td><%= service.durationTime %></td>
             <td>R$<%= service.price %></td>
             <td>
-              <span 
+              <a 
+                href='/edit-service/<%= service._id %>'
+                data-id="<%= service._id %>"
                 data-activated="update-service"
                 class="material-icons edit-btn">
                 edit
-              </span>
+              </a>
               <span 
-                data-id="<%= service._id %>" 
+                data-id="<%= service._id %>"
                 class="material-icons delete-btn">
                 delete_forever
               </span>

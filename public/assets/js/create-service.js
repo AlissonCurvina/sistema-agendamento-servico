@@ -53,7 +53,6 @@ const validateInput = inputEl => {
     return false
   } else {
     inputEl.classList.add('is-valid')
-    return true
 
     if(inputEl.tagName == 'SELECT') {
       if(inputEl.value == 'default') {
@@ -61,6 +60,7 @@ const validateInput = inputEl => {
         return false
       }
     }
+    return true
   }
 }
 
@@ -124,38 +124,42 @@ const createService = async event => {
   }
 }
 
-
-
-const populateModal = event => {
+const modalContentList = modalName => {
+  if(modalName == 'new-service') {
+    const modalContent = {
+      serviceName: 'Oie',
+      description: '',
+      duration: 'default',
+      price: 'default'
+    }
+    return modalContent
+  }
   
-  statusCheckContent
-  checkInput
-  serviceInput
-  descriptionInput
-  serviceDurationInput
-  priceInput
+}
 
+const openModal = event => {
   modalInstance.show(event)
 }
 
+newServiceButton.addEventListener('click', openModal)
 
-newServiceButton.addEventListener('click', populateModal)
+const editService = async event => {
+  const serviceId = event.target.dataset.id
+  const config = {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json'
+    }
+  }
+  
+  const result = await fetch(`/edit-service/${serviceId}`, config)
+}
 
-editButtonList.forEach( button => {
-  button.addEventListener('click', event => {
-    populateModal(event)
-  })
-})
-
-deleteButtonList.forEach( button => {
-  button.addEventListener('click', deleteService)
-})
-
-const deleteService = event => {
+const deleteService = async event => {
   const serviceId = event.target.dataset.id
   const config = {
     method: 'POST',
-    headers: {
+    headers: {  
       'Content-type': 'application/json'
     },
     body: JSON.stringify({
@@ -172,3 +176,7 @@ const deleteService = event => {
     location.href="/services"
   },1000)
 }
+
+deleteButtonList.forEach( button => {
+  button.addEventListener('click', deleteService)
+})
