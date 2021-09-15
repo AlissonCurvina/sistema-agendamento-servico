@@ -79,6 +79,29 @@ const edit_service = async (req, res) => {
   }
 }
 
+const update_service = async (req, res) => {
+  const newContent = req.body
+  
+  const updatedService = await Service.findByIdAndUpdate({
+    _id: req.params.id
+  },
+    newContent, 
+  {
+    new: true,
+    useFindAndModify: false
+  })
+
+  console.log(newContent)
+
+
+  /*   .then(()=>{
+    res.sendStatus({message:"success"});
+  })
+    .catch(err => {
+    res.status(500).send(err.message);
+  }) */
+}
+
 const delete_service = async (req, res) => {
   const result = await Service.findByIdAndRemove(req.body.id,{
     useFindAndModify: false
@@ -94,6 +117,7 @@ module.exports = {
   get_services,
   create_service,
   edit_service,
+  update_service,
   delete_service
 }
 

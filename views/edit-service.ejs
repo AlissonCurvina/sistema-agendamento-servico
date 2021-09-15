@@ -7,14 +7,12 @@
 
   <%- include('../partials/headTags.ejs') %>
 
-  <script 
-    src="../assets/js/create-service.js"
-    defer></script>
-
-  <link rel="stylesheet" href="../assets/css/services.css">
+  <link 
+    rel="stylesheet" 
+    href="../assets/css/services.css">
 
   <script 
-    src="../assets/js/services.js"
+    src="../assets/js/edit-service.js"
     defer>
   </script>
 
@@ -23,6 +21,11 @@
 <body>
   <%# Menu lateral %>
   <%- include('../partials/menu.ejs')  %>
+
+  <h1 
+    class="text-center my-4">
+    <%= pageInfo.currentUser.fantasyName %> 
+  </h1>
 
 <form 
   novalidate
@@ -125,20 +128,17 @@
       </div>
     </div>
   </div>
-  <div class="group">
-    <button   
-      type="button" 
+  <div class="group container">
+    <a  
+      href="/services"
       class="btn btn-secondary" 
-      data-bs-dismiss="modal">Voltar</button>
+      data-bs-dismiss="modal">Voltar</a>
     <button
-      class="btn btn-primary"
-      id="create-service-btn">Salvar</button>
+      class="btn btn-primary update-service-btn"
+      id="create-service-btn"
+      data-id=<%= pageInfo.currentService._id  %> >Salvar</button>
   </div>
 </form>
-
-
-
-
 
   <%# Footer %>
   <%- include('../partials/footer.ejs') %>

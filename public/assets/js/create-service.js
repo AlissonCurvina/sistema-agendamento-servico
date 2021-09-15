@@ -124,18 +124,7 @@ const createService = async event => {
   }
 }
 
-const modalContentList = modalName => {
-  if(modalName == 'new-service') {
-    const modalContent = {
-      serviceName: 'Oie',
-      description: '',
-      duration: 'default',
-      price: 'default'
-    }
-    return modalContent
-  }
-  
-}
+createServiceButton.addEventListener('click', createService)
 
 const openModal = event => {
   modalInstance.show(event)
