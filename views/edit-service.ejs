@@ -81,7 +81,7 @@
         required>
           <option 
             selected value="<%= pageInfo.currentService.durationTime %>">
-            <%= pageInfo.durationTime %></option>
+            <%= pageInfo.currentService.durationTime %></option>
           <option value="1">0h30m</option>
           <option value="2">1h00m</option>
           <option value="3">1h30m</option>
@@ -120,9 +120,8 @@
       <div class="form-check form-switch">
         <input
           class="form-check-input status-check-input shadow-none" 
-          value="true"
-          type="checkbox" 
-          checked="true"
+          value="<%= pageInfo.currentService.status %>"
+          type="checkbox"
           id="flexSwitchCheckDefault">
           <span class="status-check-text">Ativado</span>
       </div>

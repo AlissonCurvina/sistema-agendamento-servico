@@ -24,21 +24,7 @@
   color: var(--bs-danger)
 }
 
-.alert-placeholder {
-  position: absolute;
-  bottom: 0;
 
-  display: flex;
-  justify-content: center;
-
-  width: 100vw;
-}
-
-.create-service-alert {
-  width: 400px;
-
-  z-index:999999;
-}
 
 table .active-service {
   border-left: 3px solid red;

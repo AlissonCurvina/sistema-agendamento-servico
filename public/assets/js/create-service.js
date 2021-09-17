@@ -167,5 +167,11 @@ const deleteService = async event => {
 }
 
 deleteButtonList.forEach( button => {
-  button.addEventListener('click', deleteService)
+  button.addEventListener('click', async event => {
+    const isServiceToDelete = confirm('Deseja realmente deletar o serviço?')
+    
+    if(isServiceToDelete) {
+      deleteService(event)
+    }
+  })
 })

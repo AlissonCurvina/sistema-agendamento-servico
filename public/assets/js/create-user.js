@@ -1,30 +1,33 @@
 const form = document.querySelector('#create-user-form');
-const body = document.getElementsByTagName('body')[0]
+const body = document.body
 
-/* const createToast = message => {
-  const message = document.createElement('div')
-    message.innerHTML = 
-    `
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <img src="..." class="rounded me-2" alt="...">
-          <strong class="me-auto">Bootstrap</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          ${message}
-        </div>
-      </div>
+const bsAlert = (message, type, element) => {
+  const alertEl = document.createElement('div')
+
+  const alertPlaceholder = document.createElement('div')
+
+  alertPlaceholder.classList.add('alert-placeholder')
+
+  alertEl.innerHTML = 
+  `
+    <div 
+      class="alert create-service-alert alert-${type} alert-dismissible"
+      role="alert">${message}
+      <button 
+        type="button" 
+        class="btn-close" 
+        data-bs-dismiss="alert" 
+        aria-label="Close">
+      </button>
     </div>
-    `
-    body.insertAdjacentElement('afterend', message)
+  `
+  alertPlaceholder.append(alertEl)
 
-    let toastLiveExample = document.querySelector('#liveToast')
+  alertPlaceholder.style.position = 'absolute'
+  alertPlaceholder.style.bottom = 0
 
-    let toast = new bootstrap.Toast(toastLiveExample)
-    toast.show()
-} */
+  element.insertAdjacentHTML('beforeend', alertPlaceholder.outerHTML)
+}
 
 const validateFormData = async event => {
   event.preventDefault();
@@ -46,14 +49,7 @@ const validateFormData = async event => {
 
   let emailToCheck = /gmail/
 
-  if(!emailToCheck.test(email)) {
-    createToast('Use um e-mail válido gmail. O da sua conta google!')
-  }
 
-  if(password != confirmationPassword) {
-    createToast('As senhas conferem!')
-  }
-  
   const result = await fetch('/cadastrar-usuario', {
     method: 'POST',
     headers: {
@@ -67,10 +63,21 @@ const validateFormData = async event => {
     })
   })
 
-  if(result.status = 200) {
-    console.log('Criado e logado')
+  const data = await result.json()
+
+  console.log(data.status)
+
+  switch(data.status) {
+    case 200:
+    alert(data.message)
+    setTimeout( () => {
+      location.href = '/'
+    },500)
+    break;
+    case 401: 
+    alert(data.message)
+    break;
   }
-  window.location.href = '/'
 }
 
 form.addEventListener('submit', validateFormData)

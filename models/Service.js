@@ -15,7 +15,7 @@ const serviceSchema = new Schema({
     required: true
   },
   durationTime: {
-    type: Number,
+    type: String,
     required: true
   },
   status: {

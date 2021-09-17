@@ -43,13 +43,6 @@ const create_service = async (req, res) => {
 const edit_service = async (req, res) => {
   const serviceId = req.params.id
 
-  const translateTimeTable = [
-    [1, '0h30m'],
-    [2, '1h00m'],
-    [3, '1h30m'],
-    [4, '2h00m']
-  ]
-
   let currentUser
 
   const cookies = new Cookies(req, res)
@@ -61,18 +54,10 @@ const edit_service = async (req, res) => {
   if(currentUser) {
     const currentService = await Service.findById(serviceId)
 
-    const translatedTime = translateTimeTable.find( item => {
-      return item[0] == currentService.durationTime
-    })
-
-    const durationTime = translatedTime[1]
-    console.log(durationTime)
-
     const pageInfo = {
       pageName: 'Editar serviço',
       currentUser,
-      currentService,
-      durationTime
+      currentService
     }
 
     res.render('edit-service', {pageInfo})
@@ -91,22 +76,17 @@ const update_service = async (req, res) => {
     useFindAndModify: false
   })
 
-  console.log(newContent)
-
-
-  /*   .then(()=>{
-    res.sendStatus({message:"success"});
+  res.json({
+    status: 200,
+    message: 'Serviço atualizado'
   })
-    .catch(err => {
-    res.status(500).send(err.message);
-  }) */
 }
 
 const delete_service = async (req, res) => {
   const result = await Service.findByIdAndRemove(req.body.id,{
     useFindAndModify: false
   })
-  console.log(result)
+
   res.json({
     status: 200,
     message: 'Serviço removido'
@@ -120,4 +100,3 @@ module.exports = {
   update_service,
   delete_service
 }
-

@@ -98,6 +98,18 @@ const login = async (req, res, next) => {
 }
 
 const create_user = async (req, res) => {
+  const userExists = await User.find( {userName: req.body.userName}).exec()
+  
+  console.log(userExists.length)
+
+  if(userExists.length > 0) {
+    res.json({ 
+      status: 401,
+      message: 'Usuário já existe' 
+    })
+    return
+  }
+  
   const user = new User({
     fantasyName: req.body.fantasyName,
     userName: req.body.userName,
@@ -107,7 +119,11 @@ const create_user = async (req, res) => {
 
   const createdUser = await user.save()
 
-  res.json({ status: 200 })
+  res.json({ 
+    status: 200,
+    message: 'Usuário criado com sucesso'
+  })
+  return
 }
 
 const get_my_data = async (req, res) => {

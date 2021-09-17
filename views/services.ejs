@@ -24,8 +24,6 @@
   <%# Menu lateral %>
   <%- include('../partials/menu.ejs')  %>
 
-  
-
   <h1 class="text-center my-4">Lista de serviços </h1>
 
   <div class="container">
@@ -46,15 +44,16 @@
             <tr class="disabled">
               <td class="active-service"><%= service.serviceName %></td>
               <td><%= service.description %></td>
-              <td><%= service.durationTime %></td>
+              <td><%= service.translatedDuration %></td>
               <td>R$<%= service.price %></td>
               <td>
-                <span 
-                  class="material-icons edit-btn"
+                <a 
+                  href='/edit-service/<%= service._id %>'
+                  data-id="<%= service._id %>"
                   data-activated="update-service"
-                  data-id="<%= service._id %>">
+                  class="material-icons edit-btn">
                   edit
-                </span>
+                </a>
                 <span 
                   data-id="<%= service._id %>"
                   class="material-icons delete-btn">
@@ -177,10 +176,10 @@
                   aria-label="duration"
                   required>
                     <option selected value="default">Clique para ver as opções</option>
-                    <option value="1">30m</option>
-                    <option value="2">1h</option>
-                    <option value="3">1h30</option>
-                    <option value="3">2h</option>
+                    <option value="30m">30m</option>
+                    <option value="1h">1h</option>
+                    <option value="1h30">1h30</option>
+                    <option value="2h">2h</option>
                 </select>
               </div>
             </div>

@@ -1,3 +1,6 @@
+//Body
+const body = document.body
+
 //Form inputs
 const form = document.querySelector('.create-user-form')
 const statusCheckContent = document.querySelector('.status-check-text')
@@ -9,6 +12,31 @@ const priceInput = document.querySelector('#price')
 
 const updateServiceButton = document.querySelector('.update-service-btn')
 
+const bsAlert = (message, type, element) => {
+  const alertEl = document.createElement('div')
+
+  const alertPlaceholder = document.createElement('div')
+
+  alertPlaceholder.classList.add('alert-placeholder')
+
+  alertEl.innerHTML = 
+  `
+    <div 
+      class="alert create-service-alert alert-${type} alert-dismissible"
+      role="alert">${message}
+      <button 
+        type="button" 
+        class="btn-close" 
+        data-bs-dismiss="alert" 
+        aria-label="Close">
+      </button>
+    </div>
+  `
+  alertPlaceholder.append(alertEl)
+
+  element.insertAdjacentHTML('afterbegin', alertPlaceholder.outerHTML)
+}
+
 const updateService = async event => {
   event.preventDefault()
 
@@ -18,7 +46,6 @@ const updateService = async event => {
   const durationTime = serviceDurationInput.value
   const price = priceInput.value
   const status = checkInput.checked
-
  
   const config = {
     method: 'PUT',
@@ -38,8 +65,11 @@ const updateService = async event => {
   const result = await fetch(`/update-service/${event.target.dataset.id}`, config)
   const data = await result.json()
 
-  /*
-  console.log(data) */
+  bsAlert(data.message, 'success', body)
+
+  setTimeout(() => {
+    location.href='/services'
+  },800)
 }
 
 updateServiceButton.addEventListener('click', updateService)
