@@ -1,5 +1,6 @@
 const Cookies = require('cookies');
 const User = require('../models/User');
+const Service = require('../models/Service')
 
 const get_index = async (req, res) => {
   const cookies = new Cookies(req, res)
@@ -7,10 +8,16 @@ const get_index = async (req, res) => {
   if (cookies.get('SESSION') != undefined) {
     const currentUser = await User.findById(cookies.get('SESSION'))
 
+    const services = await Service.find({})
+
+    console.log(services)
+
     const pageInfo = {
       pageName: 'Sistema de agendamento de serviços',
-      currentUser
+      currentUser,
+      services
     }
+    
     res.render('index', {pageInfo})
     return
   }

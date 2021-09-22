@@ -11,6 +11,8 @@ const UserRoutes = require('./routes/UserRoutes');
 
 const ServiceRoutes = require('./routes/ServiceRoutes');
 
+const EventRoutes = require('./routes/EventRoutes')
+
 //express app 
 const app = express();
 
@@ -28,6 +30,8 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 //coolkie-parser
 app.use(cookieParser());
+
+app.use(EventRoutes)
 
 app.use(UserRoutes)
 

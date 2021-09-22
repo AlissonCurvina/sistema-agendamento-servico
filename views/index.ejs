@@ -32,6 +32,138 @@
     </div>
   </div>
 
+  <div 
+    class="modal fade" 
+    id="create-event-modal" 
+    tabindex="-1" 
+    aria-labelledby="create-event-modal-label" 
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agendar serviço</h5>
+          <button 
+            type="button" 
+            class="btn-close" 
+            data-bs-dismiss="modal" 
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form 
+            novalidate
+            id="create-event-form"
+            class="create-event-form align-self-center">
+
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                  for="select"
+                  class="form-label">
+                  <b>Serviço</b>
+                </label>
+                <select  
+                  class="form-select form-control" 
+                  id="duration"
+                  aria-label="duration"
+                  required>
+                    <option selected value="default">Clique para ver as opções</option>
+                    <% if( pageInfo.services.length > 0 ) { %>
+                      <% pageInfo.services.forEach( service => { %>
+                        <option> <%= service.serviceName %> | R$<%=service.price %> | <%= service.durationTime %></option>
+                      <% }) %>
+                    <% } %>  
+                </select>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                for="description"
+                class="form-label">
+                <b>Descrição do serviço</b>
+              </label>
+              <input 
+                type="text" 
+                class="form-control"
+                placeholder="" 
+                id="description" 
+                name="description"
+                required></input>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                for="sname"
+                class="form-label">
+                <b>Nome</b>
+              </label>
+              <input 
+                type="text" 
+                class="form-control"
+                placeholder="Digite o nome do serviço" 
+                id="sname" 
+                data-bs-toggle="tooltip" data-bs-placement="top"
+                name="sname"
+                required/>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                for="description"
+                class="form-label">
+                <b>Telefone</b>
+              </label>
+              <input 
+                type="text" 
+                class="form-control"
+                placeholder="Descreva o serviço em poucas palavras" 
+                id="description" 
+                name="description"
+                required></input>
+              </div>
+            </div>
+            
+            <div class="container">
+              <div class="mb-3">
+                <label 
+                for="sname"
+                class="form-label">
+                <b>Email</b>
+              </label>
+              <input 
+                type="text" 
+                class="form-control"
+                placeholder="Digite o nome do serviço" 
+                id="sname" 
+                data-bs-toggle="tooltip" data-bs-placement="top"
+                name="sname"
+                required/>
+              </div>
+            </div>
+          
+            <div class="group container">
+              <button   
+                type="button" 
+                class="btn btn-secondary" 
+                data-bs-dismiss="modal">Voltar</button>
+              <button
+                class="btn btn-primary"
+                id="create-service-btn">Agendar</button>
+            </div>
+          </form>
+        
+        <div class="modal-footer d-flex">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
   <%# Footer %>
   <%- include('../partials/footer.ejs') %>
 </body>

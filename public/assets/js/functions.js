@@ -1,4 +1,4 @@
-function bsAlert(message, type) {
+export function bsAlert(message, type) {
   const body = document.body
   const alertEl = document.createElement('div')
   alertEl.innerHTML = 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>SAS | </title>
+
+  <%- include('../partials/headTags.ejs') %>
+
+</head>
+
+<body>
+  <form 
+    novalidate
+    id="create-user-form"
+    class="create-user-form align-self-center"
+    >
+
+    <div class="container">
+      <div class="mb-3">
+        <label 
+        for="sname"
+        class="form-label">
+        <b>Nome do serviço</b>
+      </label>
+      <input 
+        type="text" 
+        class="form-control"
+        placeholder="Digite o nome do serviço" 
+        id="sname" 
+        data-bs-toggle="tooltip" data-bs-placement="top"
+        name="sname"
+        required/>
+      </div>
+    </div>
+    <div class="container">
+      <div class="mb-3">
+        <label 
+        for="description"
+        class="form-label">
+        <b>Descrição</b>
+      </label>
+      <textarea 
+        type="text" 
+        class="form-control"
+        placeholder="Descreva o serviço em poucas palavras" 
+        id="description" 
+        name="description"
+        required></textarea>
+      </div>
+    </div>
+    <div class="container">
+      <div class="mb-3">
+        <label 
+          for="select"
+          class="form-label">
+          <b>Duração</b>
+        </label>
+        <select  
+          class="form-select form-control" 
+          id="duration"
+          aria-label="duration"
+          required>
+            <option selected value="default">Clique para ver as opções</option>
+            <option value="30m">30m</option>
+            <option value="1h">1h</option>
+            <option value="1h30">1h30</option>
+            <option value="2h">2h</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="mb-3">
+        <label 
+        for="price"
+        class="form-label">
+        <b>Preço</b>
+      </label>
+      <input 
+        type="number" 
+        class="form-control"
+        placeholder="Digite o preço" 
+        step="0.01"
+        min="0.00"
+        id="price" 
+        name="price"
+        required/>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="mb-3">
+        <label 
+        for="status"
+        class="form-label">
+          <b>Status</b>
+        </label>
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input status-check-input shadow-none" 
+            value="true"
+            type="checkbox" 
+            checked="true"
+            id="flexSwitchCheckDefault">
+            <span class="status-check-text">Ativado</span>
+        </div>
+      </div>
+    </div>
+    <div class="group">
+      <button   
+        type="button" 
+        class="btn btn-secondary" 
+        data-bs-dismiss="modal">Voltar</button>
+      <button
+        class="btn btn-primary"
+        id="create-service-btn">Salvar</button>
+    </div>
+  </form>
+
+  <%- include('../partials/footer.ejs') %>
+</body>
+
+</html>
