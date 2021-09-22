@@ -1,41 +1,39 @@
-document.addEventListener('DOMContentLoaded', function() {
-  calendarEl = document.getElementById('calendar')
+const calendarEl = document.getElementById('calendar')
+const modalEl = document.querySelector('#create-event-modal')
+const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl)
 
-  const setCurrentCalendar = calendarType => {
-    let calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: calendarType,
-      locale: 'pt-BR',
-      headerToolbar: {
-        start: 'prev,next',
-        center: 'title',
-        end: 'today'
+const body = document.body
+
+const changeCalendarView = dateInfo => {
+  calendar.changeView('dayGridDay', dateInfo.dateStr)
+}
+
+const createDefaultCalendar = () => {
+  const calendarInitialConfig = {
+    initialView: 'dayGridMonth',
+    locale: 'pt-BR',
+    headerToolbar: {
+      start: 'prev,next',
+      center: 'title',
+      end: 'listWeek,dayGridMonth,today'
+    },
+    selectable: true,
+    select: function(info) {
+      /* alert('Início do evento: ' + info.start.toLocaleString()) */
+      modalInstance.show()
+    },
+    events: [
+      {
+        id: 999,
+        title: 'Repeating Event',
+        start: '2021-09-16T16:00:00'
       }
-    })
-    return calendar
+    ]
   }
+  const calendar = new FullCalendar.Calendar(calendarEl, calendarInitialConfig)
 
-  currentCalendar = setCurrentCalendar('dayGridMonth')
-  currentCalendar.render()
+  return calendar
+}
 
-  let newEventSource = [
-    {
-      title: 'Teste',
-      start: '2021-06-29',
-      end: '2021-06-30',
-      allDay: true
-    },
-    {
-      title: 'Outro teste',
-      start: '2021-06-15T09:00:00',
-      end: '2021-06-15T12:00:00'
-    },
-    {
-      title: 'Mais um teste só que dessa vez bem grandão',
-      start: '2021-06-15T10:00:00',
-      end: '2021-06-15T13:00:00'
-    }
-  ]
-  currentCalendar.addEventSource(newEventSource)
-  currentCalendar.render()
-})
-
+const calendar = createDefaultCalendar()
+calendar.render()
