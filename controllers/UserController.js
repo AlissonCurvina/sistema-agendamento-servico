@@ -2,42 +2,6 @@ const Cookies = require('cookies');
 const User = require('../models/User');
 const Service = require('../models/Service')
 
-const get_index = async (req, res) => {
-  const cookies = new Cookies(req, res)
-
-  if (cookies.get('SESSION') != undefined) {
-    const currentUser = await User.findById(cookies.get('SESSION'))
-
-    const services = await Service.find({})
-
-    console.log(services)
-
-    const pageInfo = {
-      pageName: 'Sistema de agendamento de serviços',
-      currentUser,
-      services
-    }
-    
-    res.render('index', {pageInfo})
-    return
-  }
-  res.render('login');
-}
-
-const get_about_page = (req, res) => {
-  const pageInfo = {
-    pageName: 'Sobre'
-  }
-  res.render('about', {pageInfo});
-}
-
-const get_create_user_page = (req, res) => {
-  const pageInfo = {
-    pageName: 'Cadastrar usuário'
-  }
-  res.render('create-user', {pageInfo});
-}
-
 const login = async (req, res, next) => {
   let cookies = new Cookies(req, res)
 
@@ -99,7 +63,9 @@ const login = async (req, res, next) => {
         message: `Bem vindo, ${loggedUser.userName}`
       })
     }
-  } catch(err) {
+  } 
+  
+  catch(err) {
     console.log(err)
   }
 }
@@ -133,19 +99,6 @@ const create_user = async (req, res) => {
   return
 }
 
-const get_my_data = async (req, res) => {
-  const cookie = new Cookies(req, res);
-  const userId = cookie.get('SESSION');
-
-  const currentUser = await User.findById(userId)
-
-  const pageInfo = {
-    pageName: 'Meus dados',
-    currentUser
-  }
-
-  res.render('info', {pageInfo})
-}
 const edit_info = async (req, res) => {
   const cookie = new Cookies(req, res);
   const userId = cookie.get('SESSION');
@@ -188,12 +141,8 @@ const logout = (req, res) => {
 
 module.exports = 
 {
-  get_index,
-  get_about_page,
-  get_create_user_page,
   login,
   create_user,
-  get_my_data,
   edit_info,
   delete_user,
   logout

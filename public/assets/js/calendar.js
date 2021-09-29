@@ -5,35 +5,54 @@ const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl)
 const body = document.body
 
 const changeCalendarView = dateInfo => {
-  calendar.changeView('dayGridDay', dateInfo.dateStr)
+  calendar.changeView('dayGridDay', dateInfo.date)
 }
 
-const createDefaultCalendar = () => {
+const dateClickHandler = info => {
+  if(info.view.type == 'dayGridDay') {
+    return
+  }
+  changeCalendarView(info)
+  console.log(info)
+}
+
+const openModal = () => {
+  modalInstance.show()
+}
+
+const eventClickHandler = info => {
+  openModal()
+}
+
+const createCalendar = () => {
   const calendarInitialConfig = {
     initialView: 'dayGridMonth',
     locale: 'pt-BR',
     headerToolbar: {
-      start: 'prev,next',
-      center: 'title',
-      end: 'listWeek,dayGridMonth,today'
+      start:  'dayGridMonth,prev,next',
+      end: 'title'
     },
+    events: [],
     selectable: true,
-    select: function(info) {
-      /* alert('Início do evento: ' + info.start.toLocaleString()) */
-      modalInstance.show()
+    dateClick: function(info) {
+      eventClickHandler(info)
     },
-    events: [
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: '2021-09-16T16:00:00'
-      }
-    ]
+    eventClick: function(info) {
+      eventClickHandler(info)
+    },
+    viewClassNames: function(info) {
+      
+    }
   }
   const calendar = new FullCalendar.Calendar(calendarEl, calendarInitialConfig)
+
+  fetch('/all-events')
+    .then( result => result.json())
+    .then(data => calendar.addEventSource(data))
+
+  calendar.render()
 
   return calendar
 }
 
-const calendar = createDefaultCalendar()
-calendar.render()
+const calendar = createCalendar()
