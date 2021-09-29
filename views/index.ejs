@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div 
+  <div
     class="modal fade" 
     id="create-event-modal" 
     tabindex="-1" 
@@ -57,6 +57,28 @@
             <div class="container">
               <div class="mb-3">
                 <label 
+                for="description"
+                class="form-label">
+                <b>Horário</b>
+              </label>
+              <select 
+                type="text" 
+                class="form-control"
+                placeholder="" 
+                id="time" 
+                name="time"
+                required>
+                <option value="">10:00</option>
+                <option value="">10:30</option>
+                <option value="">11:00</option>
+                <option value="">11:30</option>
+              </select>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="mb-3">
+                <label 
                   for="select"
                   class="form-label">
                   <b>Serviço</b>
@@ -71,7 +93,7 @@
                       <% pageInfo.services.forEach( service => { %>
                         <option> <%= service.serviceName %> | R$<%=service.price %> | <%= service.durationTime %></option>
                       <% }) %>
-                    <% } %>  
+                    <% } %> 
                 </select>
               </div>
             </div>
@@ -103,7 +125,7 @@
               <input 
                 type="text" 
                 class="form-control"
-                placeholder="Digite o nome do serviço" 
+                placeholder="Digite seu nome" 
                 id="sname" 
                 data-bs-toggle="tooltip" data-bs-placement="top"
                 name="sname"

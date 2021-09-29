@@ -6,12 +6,14 @@ const Cookies = require('cookies');
 
 const db = require('./controllers/dbController.js')
 
+const PageRoutes = require('./routes/PageRoutes')
+
 const User = require('./models/User');
 const UserRoutes = require('./routes/UserRoutes');
 
-const ServiceRoutes = require('./routes/ServiceRoutes');
+const ScheduleRoutes = require('./routes/ScheduleRoutes')
 
-const EventRoutes = require('./routes/EventRoutes')
+const ServiceRoutes = require('./routes/ServiceRoutes');
 
 //express app 
 const app = express();
@@ -31,9 +33,11 @@ app.use(express.json());
 //coolkie-parser
 app.use(cookieParser());
 
-app.use(EventRoutes)
+app.use(PageRoutes)
 
 app.use(UserRoutes)
+
+app.use(ScheduleRoutes)
 
 app.use(ServiceRoutes)
 
