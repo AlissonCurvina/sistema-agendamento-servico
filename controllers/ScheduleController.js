@@ -33,25 +33,48 @@ const events = [
   }
 ]
 
-const get_all_events = (req, res) => {
+const get_all_events = async (req, res) => {
   res.send(events)
 }
 
-const create_event = (req, res) => {
+const create_event = async (req, res) => {
 
 }
 
-const update_event = (req, res) => {
+const get_available_hours = async (req, res) => {
+
+  const availableHours = [
+    '07:00',
+    '08:00',
+    '09:00',
+    '10:00',
+    '11:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '17:00',
+    '18:00'
+  ]
+
+  console.log(req.body)
+  res.send({
+    status: 200,
+    availableHours
+  })
+}
+
+const update_event = async (req, res) => {
   
 }
 
-const delete_event = (req, res) => {
+const delete_event = async (req, res) => {
 
 }
 
 module.exports = {
   get_all_events,
   create_event,
+  get_available_hours,
   update_event,
   delete_event
 }
