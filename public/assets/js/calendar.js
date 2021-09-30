@@ -1,27 +1,45 @@
+const body = document.body
+
 const calendarEl = document.getElementById('calendar')
 const modalEl = document.querySelector('#create-event-modal')
 const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl)
 
-const body = document.body
-
-const changeCalendarView = dateInfo => {
-  calendar.changeView('dayGridDay', dateInfo.date)
-}
+const modalSelectEl = modalEl.querySelector('#time')
 
 const dateClickHandler = info => {
-  if(info.view.type == 'dayGridDay') {
-    return
-  }
-  changeCalendarView(info)
+  openCreateEventModal(info)
   console.log(info)
 }
 
-const openModal = () => {
-  modalInstance.show()
+const eventClickHandler = (info) => {
+  console.log(info.event.start)
+  calendar.changeView('dayGridDay', info.event.start )
 }
 
-const eventClickHandler = info => {
-  openModal()
+const populateModal = date => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      date: date
+    })
+  }
+
+  fetch('/get-available-hours', config)
+  .then( result => result.json())
+  .then( ({availableHours}) => {
+    availableHours.forEach( hour => {
+      modalSelectEl.innerHTML += `<option value="${hour}">${hour}</option>`
+    })
+  })
+}
+
+const openCreateEventModal = ({dateStr}) => {
+  populateModal(dateStr)
+
+  modalInstance.show()
 }
 
 const createCalendar = () => {
@@ -29,13 +47,12 @@ const createCalendar = () => {
     initialView: 'dayGridMonth',
     locale: 'pt-BR',
     headerToolbar: {
-      start:  'dayGridMonth,prev,next',
+      start: 'dayGridMonth,prev,next',
       end: 'title'
     },
-    events: [],
     selectable: true,
     dateClick: function(info) {
-      eventClickHandler(info)
+      dateClickHandler(info)
     },
     eventClick: function(info) {
       eventClickHandler(info)
@@ -56,3 +73,7 @@ const createCalendar = () => {
 }
 
 const calendar = createCalendar()
+
+modalEl.addEventListener('hide.bs.modal', () => {
+  modalSelectEl.innerHTML = ''
+})

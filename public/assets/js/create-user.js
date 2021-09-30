@@ -49,7 +49,6 @@ const validateFormData = async event => {
 
   let emailToCheck = /gmail/
 
-
   const result = await fetch('/cadastrar-usuario', {
     method: 'POST',
     headers: {
