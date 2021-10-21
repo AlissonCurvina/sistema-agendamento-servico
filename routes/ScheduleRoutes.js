@@ -9,4 +9,6 @@ router.post('/create-event', scheduleController.create_event)
 
 router.post('/get-available-hours', scheduleController.get_available_hours)
 
+router.get('/send', scheduleController.send_confirmation_email)
+
 module.exports = router

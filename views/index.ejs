@@ -10,9 +10,19 @@
 
   <%- include('../partials/headTags.ejs') %>
 
-  <script defer src="../assets/js/calendar.js"></script>
+  <%# Modal de agendamento %>
+  <script
+    src="../assets/js/create-event.js"
+    defer>
+  </script>
 
-  <%# Menu %>
+  <%# Script de criação do calendário %>
+  <script
+    src="../assets/js/calendar.js"
+    defer>
+  </script>
+
+  <%# Scrip handler do menu %>
   <script 
     src="../assets/js/menu.js"
     defer>
@@ -28,7 +38,7 @@
   <div class="app-initial-point">
     <h1 class="calendar-name"><%= pageInfo.currentUser.fantasyName %> </h1>
     <div id='calendar'>
-      <!-- Javascript -->
+      <!-- populado via javascript -->
     </div>
   </div>
 
@@ -57,16 +67,15 @@
             <div class="container">
               <div class="mb-3">
                 <label 
-                for="description"
+                for="due-time"
                 class="form-label">
-                <b>Horário</b>
+                <b>Horário*</b>
               </label>
               <select 
                 type="text" 
                 class="form-control"
-                placeholder="" 
-                id="time" 
-                name="time"
+                id="due-time" 
+                name="due-time"
                 required>
               </select>
               </div>
@@ -75,19 +84,21 @@
             <div class="container">
               <div class="mb-3">
                 <label 
-                  for="select"
+                  for="service"
                   class="form-label">
-                  <b>Serviço</b>
+                  <b>Serviço*</b>
                 </label>
                 <select  
                   class="form-select form-control" 
-                  id="duration"
-                  aria-label="duration"
+                  id="service"
+                  aria-label="service"
                   required>
                     <option selected value="default">Clique para ver as opções</option>
                     <% if( pageInfo.services.length > 0 ) { %>
                       <% pageInfo.services.forEach( service => { %>
-                        <option> <%= service.serviceName %> | R$<%=service.price %> | <%= service.durationTime %></option>
+                        <option data-id="<%= service._id %>"> 
+                          <%= service.serviceName %> | R$<%=service.price %> | <%= service.durationTime %>
+                        </option>
                       <% }) %>
                     <% } %> 
                 </select>
@@ -104,9 +115,9 @@
               <input 
                 type="text" 
                 class="form-control"
-                placeholder="" 
                 id="description" 
                 name="description"
+                disabled
                 required></input>
               </div>
             </div>
@@ -114,17 +125,17 @@
             <div class="container">
               <div class="mb-3">
                 <label 
-                for="sname"
+                for="client-name"
                 class="form-label">
-                <b>Nome</b>
+                <b>Nome*</b>
               </label>
               <input 
                 type="text" 
                 class="form-control"
                 placeholder="Digite seu nome" 
-                id="sname" 
+                id="client-name" 
                 data-bs-toggle="tooltip" data-bs-placement="top"
-                name="sname"
+                name="client-name"
                 required/>
               </div>
             </div>
@@ -132,16 +143,16 @@
             <div class="container">
               <div class="mb-3">
                 <label 
-                for="description"
+                for="client-phone"
                 class="form-label">
-                <b>Telefone</b>
+                <b>Telefone*</b>
               </label>
               <input 
                 type="text" 
                 class="form-control"
-                placeholder="Descreva o serviço em poucas palavras" 
-                id="description" 
-                name="description"
+                placeholder="Digite seu telefone celular (Whatsapp)" 
+                id="client-phone" 
+                name="client-phone"
                 required></input>
               </div>
             </div>
@@ -149,17 +160,17 @@
             <div class="container">
               <div class="mb-3">
                 <label 
-                for="sname"
+                for="client-email"
                 class="form-label">
-                <b>Email</b>
+                <b>Email*</b>
               </label>
               <input 
-                type="text" 
+                type="email" 
                 class="form-control"
-                placeholder="Digite o nome do serviço" 
-                id="sname" 
+                placeholder="Digite seu e-mail" 
+                id="client-email" 
                 data-bs-toggle="tooltip" data-bs-placement="top"
-                name="sname"
+                name="client-email"
                 required/>
               </div>
             </div>
@@ -171,7 +182,7 @@
                 data-bs-dismiss="modal">Voltar</button>
               <button
                 class="btn btn-primary"
-                id="create-service-btn">Agendar</button>
+                id="create-event-btn">Agendar</button>
             </div>
           </form>
         

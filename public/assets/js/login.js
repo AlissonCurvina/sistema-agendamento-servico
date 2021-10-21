@@ -4,48 +4,6 @@ const passwordInput = document.querySelector('#pwd')
 
 form.addEventListener('submit', login)
 
-const bsAlert = (message, type) => {
-  const body = document.body
-  const alertEl = document.createElement('div')
-  alertEl.innerHTML = 
-  `
-    <div 
-      class="alert alert-${type} alert-dismissible position-fixed"     
-      role="alert">${message}
-      <button 
-        type="button" 
-        class="btn-close" 
-        data-bs-dismiss="alert" 
-        aria-label="Close">
-      </button>
-    </div>
-  `
-  body.append(alertEl)
-}
-
-const clearErrorMessages = () => {
-  const elementsWithErrorMessages = document.querySelectorAll('.error-message')
-
-  elementsWithErrorMessages.forEach( item => {
-    item.parentNode.removeChild(item)
-  })
-}
-
-const addErrorMessage = (message, el) => {
-  const body = document.body
-  const messageToAppend = document.createElement('small')
-
-  messageToAppend.innerHTML = 
-  `
-    ${message}
-  `
-
-  messageToAppend.classList.add('my-3', 'text-danger', 'error-message')
-  
-  el.insertAdjacentHTML('afterend', messageToAppend.outerHTML)
-
-}
-
 async function login(event) {
   event.preventDefault();
   const username = document.querySelector('#uname').value
@@ -68,7 +26,7 @@ async function login(event) {
     const data = await result.json()
 
     if(data.status == 200) {
-      bsAlert(data.message, 'success')
+      bsAlert(data.message, 'success', body)
 
       setTimeout(() => {
         location.href = '/'
