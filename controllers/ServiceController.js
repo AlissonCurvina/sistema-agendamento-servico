@@ -22,6 +22,12 @@ const get_services = async (req, res) => {
   res.render('services', {pageInfo})
 }
 
+const get_service = async (req, res) => {
+  const services = await Service.findById(req.params.id)
+
+  res.send(services)
+}
+
 const create_service = async (req, res) => {
   const myBool = req.body.status
   const newService = new Service({
@@ -95,6 +101,7 @@ const delete_service = async (req, res) => {
 
 module.exports = {
   get_services,
+  get_service,
   create_service,
   edit_service,
   update_service,

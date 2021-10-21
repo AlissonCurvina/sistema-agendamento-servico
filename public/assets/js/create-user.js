@@ -1,54 +1,34 @@
-const form = document.querySelector('#create-user-form');
-const body = document.body
-
-const bsAlert = (message, type, element) => {
-  const alertEl = document.createElement('div')
-
-  const alertPlaceholder = document.createElement('div')
-
-  alertPlaceholder.classList.add('alert-placeholder')
-
-  alertEl.innerHTML = 
-  `
-    <div 
-      class="alert create-service-alert alert-${type} alert-dismissible"
-      role="alert">${message}
-      <button 
-        type="button" 
-        class="btn-close" 
-        data-bs-dismiss="alert" 
-        aria-label="Close">
-      </button>
-    </div>
-  `
-  alertPlaceholder.append(alertEl)
-
-  alertPlaceholder.style.position = 'absolute'
-  alertPlaceholder.style.bottom = 0
-
-  element.insertAdjacentHTML('beforeend', alertPlaceholder.outerHTML)
-}
+const formEl = document.querySelector('#create-user-form');
+const fantasyNameInputEl = formEl.querySelector('#fantasy-name')
+const userNameInputEl = formEl.querySelector('#user-name')
+const emailInputEl = formEl.querySelector('#email')
+const passwordInputEl = formEl.querySelector('#password')
+const confirmationPasswordEl = formEl.querySelector('#confirmation-password')
 
 const validateFormData = async event => {
   event.preventDefault();
+  clearErrorMessages()
   
-  const rawFantasyName = document.querySelector('#fname').value;
+  const rawFantasyName = fantasyNameInputEl.value;
   const fantasyName = rawFantasyName.trim();
 
-  const rawUserName = document.querySelector('#uname').value;
+  const rawUserName = userNameInputEl.value;
   const userName = rawUserName.trim();
 
-  const rawEmail = document.querySelector('#email').value;
+  const rawEmail = emailInputEl.value;
   const email = rawEmail.trim();
 
-  const rawPassword = document.querySelector('#pwd').value;
+  const rawPassword = passwordInputEl.value;
   const password = rawPassword.trim();
 
-  const rawConfirmationPassword = document.querySelector('#cpwd').value;
+  const rawConfirmationPassword = confirmationPasswordEl.value;
   const confirmationPassword = rawConfirmationPassword.trim();
 
-  let emailToCheck = /gmail/
-
+  if(!(confirmationPassword == password)) {
+    addErrorMessage('Senhas não conferem', confirmationPasswordEl)
+    return
+  }
+  
   const result = await fetch('/cadastrar-usuario', {
     method: 'POST',
     headers: {
@@ -64,8 +44,6 @@ const validateFormData = async event => {
 
   const data = await result.json()
 
-  console.log(data.status)
-
   switch(data.status) {
     case 200:
     alert(data.message)
@@ -79,4 +57,4 @@ const validateFormData = async event => {
   }
 }
 
-form.addEventListener('submit', validateFormData)
+formEl.addEventListener('submit', validateFormData)

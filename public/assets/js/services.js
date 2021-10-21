@@ -10,8 +10,6 @@ const priceInput = document.querySelector('#price')
 const newServiceButton = document.querySelector('.new-service-btn')
 const createServiceButton = document.querySelector('#create-service-btn')
 
-const body = document.body
-
 //Crud buttons
 const deleteButtonList = Array.from(document.querySelectorAll('.delete-btn'))
 const editButtonList = Array.from(document.querySelectorAll('.edit-btn'))
@@ -20,32 +18,6 @@ const editButtonList = Array.from(document.querySelectorAll('.edit-btn'))
 const modal = document.querySelector('#exampleModal')
 const modalInstance = bootstrap.Modal.getOrCreateInstance(modal)
 const openModalButton = document.querySelector('[data-bs-toggle="modal"]')
-
-//Criar alerta do bootstrap
-const bsAlert = (message, type, element) => {
-  const alertEl = document.createElement('div')
-
-  const alertPlaceholder = document.createElement('div')
-
-  alertPlaceholder.classList.add('alert-placeholder')
-
-  alertEl.innerHTML = 
-  `
-    <div 
-      class="alert create-service-alert alert-${type} alert-dismissible"
-      role="alert">${message}
-      <button 
-        type="button" 
-        class="btn-close" 
-        data-bs-dismiss="alert" 
-        aria-label="Close">
-      </button>
-    </div>
-  `
-  alertPlaceholder.append(alertEl)
-
-  element.insertAdjacentHTML('afterbegin', alertPlaceholder.outerHTML)
-}
 
 const validateInput = inputEl => {
   if(!inputEl.value) {
