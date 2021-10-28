@@ -1,7 +1,8 @@
 require('dotenv').config({path: __dirname + '/.env'})
-
+const passportSetup = require('./config/passport-setup')
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session')
 
 const db = require('./controllers/dbController.js')
 const app = express();
@@ -10,7 +11,9 @@ const PageRoutes = require('./routes/PageRoutes')
 const UserRoutes = require('./routes/UserRoutes')
 const ScheduleRoutes = require('./routes/ScheduleRoutes')
 const ServiceRoutes = require('./routes/ServiceRoutes')
-const GapiRoutes = require('./routes/GapiRoutes')
+const AuthRoutes = require('./routes/AuthRoutes');
+const keys = require('./config/keys');
+const passport = require('passport')
 
 db.connect()
 
@@ -22,6 +25,14 @@ app.use(express.static('public'));
 
 //view engine
 app.set('view engine', 'ejs');
+
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 //body-parser
 app.use(express.json());
@@ -36,8 +47,7 @@ app.use(ScheduleRoutes)
 
 app.use(ServiceRoutes)
 
-app.use(GapiRoutes)
-
+app.use(AuthRoutes)
 
 
 app.use((req, res) => {

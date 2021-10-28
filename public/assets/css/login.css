@@ -4,11 +4,16 @@
 }
 
 .login-form {
-  margin: 10vh auto;
+  margin: 30vh auto;
   max-width: 600px;
 }
 
 .alert {
   top: 0;
   width: 100%;
+}
+
+.google-logo {
+  width: 25px;
+  margin-left: 10px;
 }

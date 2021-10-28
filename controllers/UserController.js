@@ -135,8 +135,8 @@ const delete_user = (req, res) => {
 }
 
 const logout = (req, res) => {
-  res.clearCookie('SESSION');
-  res.redirect('/');
+  req.logout()
+  res.redirect('/')
 }
 
 module.exports = 
