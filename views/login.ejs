@@ -23,53 +23,19 @@
         class="logo-small mb-3 mx-auto d-block "
         src="../assets/images/sas-logo.png" 
         alt="Logo SAS">
-      <h3 class="text-center">Sistema de agendamento de serviços</h3>
-      <div class="mb-3">
-        <label 
-          for="username" 
-          class="form-label">
-          Nome</label>
-        <input 
-          type="text" 
-          class="form-control"
-          id="uname" 
-          aria-describedby="username"
-          placeholder="Digite seu nome de usuário">
-      </div>
-      <div class="mb-3">
-        <label 
-          for="pwd" 
-          class="form-label">
-          Senha</label>
-        <input 
-          type="password" 
-          class="form-control" 
-          id="pwd"
-          placeholder="Digite sua senha">
-      </div>
-      <span class="float-end">
-        Esqueceu a <a href="#">senha?</a></span>
-      <div class="mb-3 form-check">
-        <input 
-          type="checkbox" 
-          class="form-check-input" 
-          id="remember-pwd">
-        <label 
-          class="form-check-label" 
-          for="remember-pwd">Lembrar minha senha</label>
-      </div>
-    
+      <h3 class="text-center">SAS Calendar</h3>
+      
       <div class="d-grid gap-2">
-        <button
+        <a
           class="btn btn-primary" 
-          type="submit">Fazer login com sua conta google</button>
-        <button
-          class="btn btn-success" 
-          type="button">
-            <a style="color: inherit;" href="/cadastrar-usuario">
-              Cadastrar usuário
-            </a>
-        </button>
+          href="/auth/google"
+          type="submit">Fazer login com sua conta Google
+          <img 
+            class="google-logo"
+            src="../assets/images/google-logo.png" 
+            alt="Logo do Google">
+        </a>
+        
       </div>
     </form>
   </div>

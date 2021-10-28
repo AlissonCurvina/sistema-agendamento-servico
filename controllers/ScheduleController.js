@@ -1,9 +1,5 @@
 require('dotenv').config({path: __dirname + '/.env'})
 
-const path = require('path')
-
-console.log(path)
-
 const Service = require('../models/Service')
 const nodeMailer = require('nodemailer')
 

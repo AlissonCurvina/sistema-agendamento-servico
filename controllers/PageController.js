@@ -3,25 +3,20 @@ const User = require('../models/User');
 const Service = require('../models/Service')
 
 const get_index_page = async (req, res) => {
-  const cookies = new Cookies(req, res)
-
-  if (cookies.get('SESSION') != undefined) {
-    const currentUser = await User.findById(cookies.get('SESSION'))
-
-    const services = await Service.find({})
-
-    console.log(services)
-
-    const pageInfo = {
-      pageName: 'Sistema de agendamento de serviços',
-      currentUser,
-      services
-    }
-    
-    res.render('index', {pageInfo})
+  
+  if(!req.user) {
+    res.render('login')
     return
   }
-  res.render('login');
+
+  const services = await Service.find({})
+  
+  const pageInfo = {
+    pageName: 'Sistema de agendamento de serviços',
+    currentUser: req.user,
+    services
+  }
+  res.render('index', {pageInfo})
 }
 
 const get_create_user_page = (req, res) => {
