@@ -9,6 +9,10 @@ const userSchema = {
   googleId: {
     type: String,
     required: true
+  },
+  accessToken: {
+    type: String,
+    required: true
   }
 }
 

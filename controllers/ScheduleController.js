@@ -2,8 +2,9 @@ require('dotenv').config({path: __dirname + '/.env'})
 
 const Service = require('../models/Service')
 const nodeMailer = require('nodemailer')
+const calendarController = require('./calendarController')
 
-const events = [
+/* const events = [
   {
     id: 999,
     title: 'Disponível',
@@ -34,10 +35,14 @@ const events = [
     title: 'Corte',
     start: '2021-09-07T09:00:00',
   }
-]
+] */
 
 const get_all_events = async (req, res) => {
-  res.send(events)
+  const events = calendarController.get_all_events()
+
+  events.then( result => {
+    res.send(result)
+  })
 }
 
 const create_event = async (req, res) => {
@@ -45,8 +50,11 @@ const create_event = async (req, res) => {
 }
 
 const get_available_hours = async (req, res) => {
+  const availableHours = await calendarController.get_free_busy_info()
 
-  const availableHours = [
+  res.send(availableHours)
+
+  /* const availableHours = [
     '07:00:00',
     '08:00:00',
     '09:00:00',
@@ -63,7 +71,7 @@ const get_available_hours = async (req, res) => {
   res.send({
     status: 200,
     availableHours
-  })
+  }) */
 }
 
 const update_event = async (req, res) => {

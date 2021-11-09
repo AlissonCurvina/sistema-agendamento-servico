@@ -29,13 +29,21 @@ const populateModal = date => {
   }
 
   fetch('/get-available-hours', config)
+    .then( results => results.json())
+    .then( data => console.log(data))
+
+
+  
+
+
+  /* 
   .then( result => result.json())
   .then( ({availableHours}) => {
     availableHours.forEach( hour => {
       const formatedHour = hour.slice(0,5)
       modalSelectEl.innerHTML += `<option value="${hour}">${formatedHour}</option>`
     })
-  })
+  }) */
 }
 
 function openCreateEventModal({dateStr}) {

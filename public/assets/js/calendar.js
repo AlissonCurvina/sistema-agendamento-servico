@@ -42,7 +42,21 @@ const createCalendar = () => {
 
   fetch('/all-events')
     .then( result => result.json())
-    .then(data => calendar.addEventSource(data))
+    .then(data => {
+      const example = data.map( ({description, summary, start, end, id}) => {
+        return {
+          description,
+          title: summary,
+          start: start.dateTime,
+          end: end.dateTime,
+          id
+        }
+      })
+
+      console.log(example)
+
+      calendar.addEventSource(example)
+    })
 
   calendar.render()
 
