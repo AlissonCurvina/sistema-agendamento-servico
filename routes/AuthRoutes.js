@@ -3,7 +3,7 @@ const router = express.Router()
 const passport = require('passport')
 
 router.get('/auth/google', passport.authenticate('google', {
-  scope: ['profile','https://www.googleapis.com/auth/calendar.events'],
+  scope: ['profile'],
   prompt: 'consent'
 })) 
 
