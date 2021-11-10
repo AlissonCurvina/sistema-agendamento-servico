@@ -3,7 +3,8 @@ const router = express.Router()
 const passport = require('passport')
 
 router.get('/auth/google', passport.authenticate('google', {
-  scope: ['profile']
+  scope: ['profile'],
+  prompt: 'consent'
 })) 
 
 router.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {

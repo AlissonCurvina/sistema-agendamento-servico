@@ -28,9 +28,9 @@ const populateModal = date => {
     })
   }
 
-  fetch('/get-available-hours', config)
-  .then( result => result.json())
-  .then( ({availableHours}) => {
+  fetch('/get-available-hours', config)  
+    .then( result => result.json())
+    .then( ({availableHours}) => {
     availableHours.forEach( hour => {
       const formatedHour = hour.slice(0,5)
       modalSelectEl.innerHTML += `<option value="${hour}">${formatedHour}</option>`
@@ -63,10 +63,20 @@ serviceInputEl.addEventListener('change', event => {
 })
 
 const createEvent = scheduleInfo => {
-  const newEvent = {
+  const config = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(scheduleInfo)
+  }
+
+  fetch('/create-event', config)
+  
+  /* const newEvent = {
     title: scheduleInfo.clientName,
     start: scheduleInfo.dueTime
-  }
+  } */
 
   calendar.addEvent(newEvent)
   modalInstance.hide()
@@ -74,7 +84,7 @@ const createEvent = scheduleInfo => {
 }
 
 //Formata a data do agendamento
-const createScheduleDate = (hour, date) => `${date}T${hour}`
+const createScheduleDate = (hour, date) => `${date}T${hour}.000Z`
 
 const validateForm = event => {
   event.preventDefault()

@@ -11,7 +11,8 @@ const PageRoutes = require('./routes/PageRoutes')
 const UserRoutes = require('./routes/UserRoutes')
 const ScheduleRoutes = require('./routes/ScheduleRoutes')
 const ServiceRoutes = require('./routes/ServiceRoutes')
-const AuthRoutes = require('./routes/AuthRoutes');
+const AuthRoutes = require('./routes/AuthRoutes')
+const CalendarRoutes = require('./routes/CalendarRoutes')
 const keys = require('./config/keys');
 const passport = require('passport')
 
@@ -48,6 +49,8 @@ app.use(ScheduleRoutes)
 app.use(ServiceRoutes)
 
 app.use(AuthRoutes)
+
+app.use(CalendarRoutes)
 
 
 app.use((req, res) => {

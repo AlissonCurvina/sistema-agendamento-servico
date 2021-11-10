@@ -17,20 +17,24 @@ passport.use(
   new GoogleStrategy({
     clientID: keys.google.clientID,
     clientSecret: keys.google.clientSecret,
-    callbackURL: '/auth/google/redirect'
-  }, (accessToken, refreshToken, profile, done) => {
-    User.findOne({googleId: profile.id}).then( currentUser => {
+    callbackURL: '/auth/google/redirect',
+    access_type: 'offline'
+  }, (accessToken, refreshToken, data, done) => {
+    User.findOne({googleId: data.id}).then( currentUser => {
       if(currentUser) {
         done(null, currentUser)
       } else {
         new User({
-          username: profile.displayName,
-          googleId: profile.id
+          username: data.displayName,
+          googleId: data.id,
+          accessToken: accessToken
         }).save().then( newUser => {
           console.log(newUser)
           done(null, newUser)
         })
       }
+    }).catch(err => {
+      console.log(err)
     })
   }
 ))
