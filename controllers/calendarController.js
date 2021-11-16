@@ -140,7 +140,7 @@ const dateTimeForCalendar = () => {
     minute = `0${minute}`;
   }
 
-  let newDateTime = `${year}-${month}-${day}T${hour}:${minute}:00.000${TIMEOFFSET}`;
+  let newDateTime = `${year}-${month}-${day}T${hour}:${minute}:00.000-00:00`;
 
   let event = new Date(Date.parse(newDateTime));
 

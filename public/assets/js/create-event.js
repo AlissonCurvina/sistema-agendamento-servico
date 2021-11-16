@@ -14,10 +14,7 @@ const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl)
 
 const modalSelectEl = modalEl.querySelector('#due-time')
 
-const populateModal = date => {
-  //Define o data attr com a data do dia que foi clicado
-  modalEl.dataset.currentDate = date
-  
+const fetchAvailableHours = date => {
   const config = {
     method: 'POST',
     headers: {
@@ -38,9 +35,14 @@ const populateModal = date => {
   })
 }
 
+const populateModal = date => {
+  //Define o data attr com a data do dia que foi clicado
+  modalEl.dataset.currentDate = date
+}
+
 function openCreateEventModal({dateStr}) {
   populateModal(dateStr)
-
+  fetchAvailableHours(dateStr)
   modalInstance.show()
 }
 
@@ -72,15 +74,10 @@ const createEvent = scheduleInfo => {
   }
 
   fetch('/create-event', config)
-  
-  /* const newEvent = {
-    title: scheduleInfo.clientName,
-    start: scheduleInfo.dueTime
-  } */
 
-  calendar.addEvent(newEvent)
   modalInstance.hide()
-  bsAlert('Atendimento agendado', 'success', body)
+
+  calendar.render()
 }
 
 //Formata a data do agendamento

@@ -21,6 +21,10 @@ const eventSchema = new Schema({
   service: {
     type: Object,
     required
+  },
+  eventIdOnGoogleCalendar: {
+    type: String,
+    required
   }
 }, {timestamps: true})
 
