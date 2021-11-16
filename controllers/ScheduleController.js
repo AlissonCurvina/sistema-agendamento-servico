@@ -4,50 +4,40 @@ const Service = require('../models/Service')
 const nodeMailer = require('nodemailer')
 const calendarController = require('./calendarController')
 const serviceController = require('./serviceController')
+
 const {google} = require('googleapis');
+const TIMEOFFSET = '-03:00';
+
+  const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
+  const calendarId = process.env.CALENDAR_ID;
+
+  // Google calendar API settings
+  const SCOPES = 'https://www.googleapis.com/auth/calendar';
+
+  const auth = new google.auth.JWT(
+    CREDENTIALS.client_email,
+    null,
+    CREDENTIALS.private_key,
+    SCOPES
+  );
+
+  const calendar = google.calendar({
+    version : 'v3',
+    auth: auth
+  });
 
 const createDateTime = dueTime => {
 
   const date = new Date(dueTime)
-  const endTime = new Date(date.setHours(date.getHours() + 1)).toISOString()
 
+  const convertedDate = new Date(date.setHours(date.getHours() + 3))
+
+  const endTime = new Date(date.setHours(date.getHours() + 1))
+  
   return {
-    'start': dueTime,
-    'end': endTime
+    'start': convertedDate.toISOString(),
+    'end': endTime.toISOString()
   }
-
-  /* let date = new Date();
-
-  let year = date.getFullYear();
-  let month = date.getMonth() + 1;
-  if (month < 10) {
-    month = `0${month}`;
-  }
-  let day = date.getDate();
-  if (day < 10) {
-    day = `0${day}`;
-  }
-  let hour = date.getHours();
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-  let minute = date.getMinutes();
-  if (minute < 10) {
-    minute = `0${minute}`;
-  } */
-/* 
-  let newDateTime = `${year}-${month}-${day}T${hour}:${minute}:00.000${TIMEOFFSET}`;
-
-  let event = new Date(Date.parse(newDateTime));
-
-  let startDate = event;
-  // Delay in end time is 1
-  let endDate = new Date(new Date(startDate).setHours(startDate.getHours()+1));
-
-  return {
-    'start': startDate,
-    'end': endDate
-  } */
 }
 
 const get_all_events = async (req, res) => {
@@ -79,26 +69,6 @@ const create_event = async (req, res) => {
     }
   }
 
-  const TIMEOFFSET = '-03:00';
-
-  const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
-  const calendarId = process.env.CALENDAR_ID;
-
-  // Google calendar API settings
-  const SCOPES = 'https://www.googleapis.com/auth/calendar';
-
-  const auth = new google.auth.JWT(
-    CREDENTIALS.client_email,
-    null,
-    CREDENTIALS.private_key,
-    SCOPES
-  );
-
-  const calendar = google.calendar({
-    version : 'v3',
-    auth: auth
-  });
-
   try {
     let response = await calendar.events.insert({
       auth: auth,
@@ -107,7 +77,8 @@ const create_event = async (req, res) => {
     })
 
     if (response['status'] == 200 && response['statusText'] === 'OK') {
-      console.log('Evento criado')
+      console.log(response)
+      res.send(response)
     } else {
       console.log('Deu ruim')
     }
@@ -116,7 +87,6 @@ const create_event = async (req, res) => {
     console.log(`Error at insertEvent --> ${error}`)
     return 0
   }
-
 }
 
 const get_available_hours = async (req, res) => {
@@ -147,7 +117,21 @@ const update_event = async (req, res) => {
 }
 
 const delete_event = async (req, res) => {
+  try {
+    let response = await calendar.events.delete({
+      auth: auth,
+      calendarId: calendarId,
+      eventId: req.body.eventId
+    })
+  } 
+  catch(err) {
+    console.log(`Houve um erro --> ${err}`)
+  }
 
+  res.send({
+    status: 200,
+    message: 'Agendamento cancelado.'
+  })
 }
 
 const send_confirmation_email = async (req, res) => {
