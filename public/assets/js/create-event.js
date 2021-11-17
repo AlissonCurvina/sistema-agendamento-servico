@@ -77,7 +77,7 @@ const createEvent = scheduleInfo => {
 
   modalInstance.hide()
 
-  calendar.render()
+  window.location = '/'
 }
 
 //Formata a data do agendamento
@@ -90,6 +90,8 @@ const validateForm = event => {
   const currentDate = modalEl.dataset.currentDate
 
   const dueTime = createScheduleDate(dueTimeInputEl.value, currentDate)
+
+  console.log(dueTime, currentDate)
   const service = serviceInputEl.options[serviceInputEl.selectedIndex].dataset.id
   const clientName = clientNameInputEl.value
   const clientPhone = clientPhoneInputEl.value

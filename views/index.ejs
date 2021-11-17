@@ -96,8 +96,11 @@
                     <option selected value="default">Clique para ver as opções</option>
                     <% if( pageInfo.services.length > 0 ) { %>
                       <% pageInfo.services.forEach( service => { %>
+                        <% if( service.status == false ) { %>
+                        <% return %>
+                        <% } %>
                         <option data-id="<%= service._id %>"> 
-                          <%= service.serviceName %> | R$<%=service.price %> | <%= service.durationTime %>
+                          <%= service.serviceName %> | Preço: R$ <%=service.price %> | Duração: <%= service.durationTime %>
                         </option>
                       <% }) %>
                     <% } %> 

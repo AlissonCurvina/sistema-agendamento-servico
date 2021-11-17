@@ -22,8 +22,6 @@ const calendar = google.calendar({
   auth: auth
 });
 
-
-
 const createEvent = async (req, res) => {
   try {
     let response = await calendar.events.insert({
