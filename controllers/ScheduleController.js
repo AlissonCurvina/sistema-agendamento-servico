@@ -57,7 +57,7 @@ const create_event = async (req, res) => {
   console.log(dateTime)
 
   const newEvent = {
-    'summary': `${service.serviceName} | ${req.body.clientName}`,
+    'summary': `${service.serviceName} | ${req.body.clientName} | ${req.body.clientPhone} | ${req.body.clientEmail}`,
     'description': `${req.body.clientName} agendou ${service.serviceName}`,
     'start': {
       'dateTime': dateTime.start,
@@ -94,14 +94,11 @@ const get_available_hours = async (req, res) => {
 
   const availableHours = [
     '07:00:00',
-    '08:00:00',
     '09:00:00',
     '10:00:00',
     '11:00:00',
-    '13:00:00',
     '14:00:00',
     '15:00:00',
-    '17:00:00',
     '18:00:00'
   ]
 
@@ -113,6 +110,28 @@ const get_available_hours = async (req, res) => {
 }
 
 const update_event = async (req, res) => {
+  
+}
+
+const edit_event = async (req, res) => {
+
+  try {
+    let response = await calendar.events.list({
+      calendarId: calendarId,
+      timeMin: '2021-11-01T00:00:00.000Z',
+      timeMax: '2021-12-01T00:00:00.000Z',
+      timeZone: 'America/Sao_Paulo'
+    })
+  
+    let items = response['data']['items']
+
+    res.send(items)
+    return
+  } 
+  catch (error) {
+    console.log(`Error at getEvents --> ${error}`)
+    return 0
+  }
   
 }
 
@@ -169,6 +188,7 @@ const send_confirmation_email = async (req, res) => {
 module.exports = {
   get_all_events,
   create_event,
+  edit_event,
   get_available_hours,
   update_event,
   delete_event,

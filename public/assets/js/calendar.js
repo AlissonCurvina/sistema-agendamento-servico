@@ -13,8 +13,8 @@ const dateClickHandler = info => {
   openCreateEventModal(info)
 }
 
-const deleteEvent = ({event}) => {
-  const eventId = event.id
+const deleteEvent = (event) => {
+  const eventId = event.target.dataset.id
   const config = {
     method: 'POST',
     headers: {
@@ -33,18 +33,49 @@ const deleteEvent = ({event}) => {
 }
 
 const editEvent = event => {
+  const startString = event.target.dataset.startstr
+  populateModal(startString)
+  fetchAvailableHours(startString)
 
+  console.log(startString)
+
+  const eventId = event.target.dataset.id
+  const config = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({eventId}) 
+  }
+
+  fetch('/edit-event', config)
+  .then( results => results.json())
+  .then( data => {
+    const matchedEvent = data.find( event => event.id == eventId)
+    const eventSummary = matchedEvent.summary
+    let clientName = eventSummary.slice(eventSummary.indexOf('|') + 2, eventSummary.length)
+    let clientPhone = clientName.slice(clientName.indexOf('|') + 2, clientName.length)
+    let clientEmail = clientPhone.slice(clientPhone.indexOf('|') + 2, clientPhone.length)
+    const service = eventSummary.slice(eventSummary[0], eventSummary.indexOf('|') - 1 )
+    
+    clientNameInputEl.value = clientName.slice(clientName[0], clientName.indexOf('|') - 1)
+    clientPhoneInputEl.value = clientPhone.slice(clientPhone[0], clientPhone.indexOf('|') - 1)
+    clientEmailInputEl.value = clientEmail
+
+    console.log(dueTimeInputEl.value)
+  })
+
+  modalInstance.show()
+
+  /* fetch('/delete-event', config)
+  .then( results => results.json())
+  .then( data => {
+  }) */
 }
 
 const eventClickHandler = (info) => {
   if(info.view.type == "dayGridMonth") {
     calendar.changeView('dayGridDay', info.event.start )
-  }
-  if(info.view.type == "dayGridDay") {
-    const isEventToDelete = confirm("Deseja cancelar esse agendamento?")
-    if(isEventToDelete) {
-      deleteEvent(info)      
-    }
   }
 }
 
@@ -56,23 +87,25 @@ const createCalendar = () => {
       end: currentDate.setDate(currentDate.getDate() + 20)
     },
     locale: 'pt-BR',
-    eventContent: function(info) {
-      let buttonGroup = document.createElement('span')
+    eventDidMount: function(info) {
+      console.log(info.el)
+      if(info.view.type == 'dayGridDay') {
+        let buttonGroup = document.createElement('span')
 
-      console.log(info)
-      
-      buttonGroup.innerHTML = 
-      ` 
-        <button class="delete-event">Deletar</button>
-        <button class="edit-event">Editar</button>
-      `
-      const arrayOfElements = [
-        buttonGroup
-      ]
-      return { 
-        domNodes: arrayOfElements 
+        buttonGroup.innerHTML = 
+        ` 
+          <button class="delete-event" data-id="${info.event.id}">Deletar</button>
+          <button class="edit-event" data-id="${info.event.id}" data-startStr="${info.event.startStr}">Editar</button>
+        `
+
+        info.el.innerHTML += buttonGroup.outerHTML
+
+        const deleteEventButton = document.querySelector('.delete-event')
+        const editEventButton = document.querySelector('.edit-event')
+
+        deleteEventButton.addEventListener('click', deleteEvent)
+        editEventButton.addEventListener('click', editEvent)
       }
-      
     },
     headerToolbar: {
       start: 'dayGridMonth,prev,next',

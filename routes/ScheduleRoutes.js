@@ -11,6 +11,8 @@ router.post('/get-available-hours', scheduleController.get_available_hours)
 
 router.post('/delete-event', scheduleController.delete_event)
 
+router.post('/edit-event', scheduleController.edit_event)
+
 router.get('/send', scheduleController.send_confirmation_email)
 
 module.exports = router

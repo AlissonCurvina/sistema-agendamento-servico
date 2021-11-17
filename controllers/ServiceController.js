@@ -3,19 +3,11 @@ const Service = require('../models/Service');
 const User = require('../models/User');
 
 const get_services = async (req, res) => {
-  let currentUser
-
-  const cookies = new Cookies(req, res)
-
-  if (cookies.get('SESSION') != undefined) {
-    currentUser = await User.findById(cookies.get('SESSION'))
-  }
 
   const services = await Service.find({})
 
   const pageInfo = {
     pageName: 'Serviços',
-    currentUser,
     services
   }
 
@@ -49,25 +41,14 @@ const create_service = async (req, res) => {
 const edit_service = async (req, res) => {
   const serviceId = req.params.id
 
-  let currentUser
+  const currentService = await Service.findById(serviceId)
 
-  const cookies = new Cookies(req, res)
-
-  if (cookies.get('SESSION') != undefined) {
-    currentUser = await User.findById(cookies.get('SESSION'))
+  const pageInfo = {
+    pageName: 'Editar serviço',
+    currentService
   }
 
-  if(currentUser) {
-    const currentService = await Service.findById(serviceId)
-
-    const pageInfo = {
-      pageName: 'Editar serviço',
-      currentUser,
-      currentService
-    }
-
-    res.render('edit-service', {pageInfo})
-  }
+  res.render('edit-service', {pageInfo})
 }
 
 const update_service = async (req, res) => {
